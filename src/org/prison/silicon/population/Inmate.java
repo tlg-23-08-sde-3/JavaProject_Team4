@@ -8,17 +8,15 @@ import java.time.LocalDate;
 public abstract class Inmate {
     private int idNumber;
     private String name;
-    private LocalDate sentenceLength;
     private boolean gangLeader;
     private SecurityRating securityRating; // created in the org.prison.silicon package by Chris
 
     // private no-args constructor
     private Inmate(){};
 
-    public Inmate(int idNumber, String name, LocalDate sentenceLength, boolean gangLeader, SecurityRating securityRating) {
+    public Inmate(int idNumber, String name, boolean gangLeader, SecurityRating securityRating) {
         setIdNumber(idNumber);
         setName(name);
-        setSentenceLength(sentenceLength);
         setGangLeader(gangLeader);
         setSecurityRating(securityRating);
     }
@@ -48,14 +46,6 @@ public abstract class Inmate {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public LocalDate getSentenceLength() {
-        return sentenceLength;
-    }
-
-    public void setSentenceLength(LocalDate sentenceLength) {
-        this.sentenceLength = sentenceLength;
     }
 
     public boolean isGangLeader() {
