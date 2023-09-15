@@ -1,5 +1,8 @@
 package org.prison.silicon.population;
 
+import org.prison.silicon.FacilityList;
+import org.prison.silicon.SecurityRating;
+
 import java.time.LocalDate;
 
 class HighSecurityInmate extends Inmate{

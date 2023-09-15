@@ -1,6 +1,6 @@
 package org.prison.silicon;
 
-enum FacilityList {
+public enum FacilityList {
     LOW_SECURITY_UNIT,
     MEDIUM_SECURITY_UNIT,
     HIGH_SECURITY_UNIT,

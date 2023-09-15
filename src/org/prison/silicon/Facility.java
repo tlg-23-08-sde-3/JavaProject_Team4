@@ -1,5 +1,9 @@
 package org.prison.silicon;
 
+import org.prison.silicon.population.Inmate;
+
+import java.util.Map;
+
 class Facility {
     private FacilityList name;
     private int maxCapacity;
