@@ -11,17 +11,12 @@ class Prison {
 
     private Prison(String name) {
         this.name = name;
-
     }
 
     // Business methods
     public void lockdown() {
         // will lock the prison down stopping all movement
     }
-
-    public void releaseInmate() {
-    }
-
 
     // Getters
     public String getName() {

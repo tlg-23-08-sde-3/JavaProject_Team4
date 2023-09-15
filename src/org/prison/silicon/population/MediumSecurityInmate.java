@@ -7,8 +7,8 @@ import java.time.LocalDate;
 
 class MediumSecurityInmate extends Inmate{
 
-    public MediumSecurityInmate(int idNumber, String name, LocalDate sentenceLength, boolean gangLeader, SecurityRating securityRating){
-        super(idNumber, name, sentenceLength, gangLeader, securityRating);
+    public MediumSecurityInmate(int idNumber, String name, boolean gangLeader, SecurityRating securityRating){
+        super(idNumber, name, gangLeader, securityRating);
     }
 
     @Override
