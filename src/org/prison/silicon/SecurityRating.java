@@ -1,6 +1,6 @@
 package org.prison.silicon;
 
-enum SecurityRating {
+public enum SecurityRating {
     LOW,
     MEDIUM,
     HIGH;

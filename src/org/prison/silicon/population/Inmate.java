@@ -1,8 +1,11 @@
 package org.prison.silicon.population;
 
+import org.prison.silicon.FacilityList;
+import org.prison.silicon.SecurityRating;
+
 import java.time.LocalDate;
 
-abstract class Inmate {
+public abstract class Inmate {
     private int idNumber;
     private String name;
     private LocalDate sentenceLength;
