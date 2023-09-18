@@ -5,7 +5,7 @@ import org.prison.silicon.SecurityRating;
 
 import javax.swing.*;
 
-class LowSecurityInmate extends Inmate{
+public class LowSecurityInmate extends Inmate{
     private FacilityList currentLocation;
 
     public LowSecurityInmate(int idNumber, String name, boolean gangLeader, SecurityRating securityRating){
