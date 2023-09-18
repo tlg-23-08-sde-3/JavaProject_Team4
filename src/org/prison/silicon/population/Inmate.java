@@ -2,9 +2,6 @@ package org.prison.silicon.population;
 
 import org.prison.silicon.FacilityList;
 import org.prison.silicon.SecurityRating;
-import org.w3c.dom.ls.LSOutput;
-
-import javax.swing.*;
 
 public abstract class Inmate implements Comparable<Inmate> {
     private int idNumber;

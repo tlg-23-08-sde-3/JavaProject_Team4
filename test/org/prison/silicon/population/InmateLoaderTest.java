@@ -12,7 +12,7 @@ public class InmateLoaderTest {
 
     @Test
     public void load_shouldReturnPopulatedList() throws IOException {
-        InmateLoader inLoader = new InmateLoader("src/org/prison/silicon/data/inmate-data.csv");
+        InmateLoader inLoader = new InmateLoader("resources/data/inmate-data.csv");
         List<Inmate> inmates = inLoader.load();
         assertEquals(50, inmates.size());
 

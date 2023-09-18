@@ -3,7 +3,6 @@ package org.prison.silicon;
 import org.prison.silicon.population.Inmate;
 
 import java.util.Map;
-import java.util.OptionalDouble;
 import java.util.TreeMap;
 
 public class Facility {
