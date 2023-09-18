@@ -5,7 +5,7 @@ import org.prison.silicon.population.Inmate;
 import java.util.HashMap;
 import java.util.Map;
 
-class Prison {
+public class Prison {
     private final String name;
     private boolean lockDown;
     private int funds;
