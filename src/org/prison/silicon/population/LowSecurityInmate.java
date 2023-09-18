@@ -1,25 +1,21 @@
 package org.prison.silicon.population;
 
-import org.prison.silicon.Facility;
 import org.prison.silicon.FacilityList;
 import org.prison.silicon.SecurityRating;
 
 import javax.swing.*;
 
-public class LowSecurityInmate extends Inmate{
+class LowSecurityInmate extends Inmate{
     private FacilityList currentLocation;
-    public Facility facility;
 
     public LowSecurityInmate(int idNumber, String name, boolean gangLeader, SecurityRating securityRating){
         super(idNumber, name, gangLeader, securityRating);
-        setHappiness(70);
         setCurrentLocation(FacilityList.LOW_SECURITY_UNIT);
     }
 
     @Override
     public void work() {
         // Attempt to move the inmate to the work area
-        setHappiness(getHappiness() - 6);
         moveInmate(FacilityList.WORK_AREA);
     }
 
@@ -32,19 +28,24 @@ public class LowSecurityInmate extends Inmate{
     @Override
     public void eat() {
         // move inmates from their current location to the kitchen
-        setHappiness(getHappiness() + 5);
         moveInmate(FacilityList.KITCHEN);
     }
 
     @Override
     public void sleep() {
         // move inmates from their current location to their assigned security unit
-        setHappiness(getHappiness() + 5);
         moveInmate(FacilityList.LOW_SECURITY_UNIT);
     }
 
+    public FacilityList getCurrentLocation() {
+        return currentLocation;
+    }
+
+    public void setCurrentLocation(FacilityList currentLocation) {
+        this.currentLocation = currentLocation;
+    }
     // Invalid move method that generates a pop-up window
-    private void InvalidMove(FacilityList requestedLocation){
+    public void InvalidMove(FacilityList requestedLocation){
         String message = "Inmate " + getIdNumber() + " is already in the " + this.getCurrentLocation() +
                 "\narea. Please select a different location.";
         String title = "Invalid Move To " + requestedLocation;

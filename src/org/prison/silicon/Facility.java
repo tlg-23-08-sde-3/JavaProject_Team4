@@ -5,7 +5,7 @@ import org.prison.silicon.population.Inmate;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class Facility {
+class Facility {
     private final FacilityList name;
     private final int maxCapacity;
     private final SecurityRating securityRating;
@@ -35,24 +35,21 @@ public class Facility {
     }
 
     public  void calculateRiskRating() {
-        // Calculate avgHappiness and ratingAdjHappiness for currentInmateMap
-        double avgHappiness = currentInmates.values().stream()
-                .mapToInt(Inmate::getHappiness)
-                .average().getAsDouble();
-        int ratingAdjHappiness = (100 - (int) avgHappiness) / 2;
+        // TODO: Add happiness value to inmates. This will average the happiness of the current inmates
+        int avgHappiness = 50;
+        int ratingAdjHappiness = (100 - avgHappiness) / 2;
         // Facility being at max capacity will increase riskRating by 50
-        double ratingAdjCapacity = (double) currentInmates.size() / getMaxCapacity() * 50;
+        int ratingAdjCapacity = (currentInmates.size() / getMaxCapacity()) * 50;
         // Add a certain amount for each gangLeader
         int ratingAdjGang =
-                (int) currentInmates.values().stream()
-                        .filter(Inmate::isGangLeader)
-                        .count() * 25;
-        this.riskRating = ratingAdjHappiness + (int) ratingAdjCapacity + ratingAdjGang;
+                (int) currentInmates.values().stream().filter(Inmate::isGangLeader).count() * 25;
+        this.riskRating = ratingAdjHappiness + ratingAdjCapacity + ratingAdjHappiness;
     }
 
     public void displayCurrentInmates() {
         for (Inmate inmate : getInmateMap().values()) {
-            System.out.println(inmate);
+            System.out.printf("ID: %d, Name: %s, Security Rating: %s, Gang Leader: %s, Happiness: int\n",
+                    inmate.getIdNumber(), inmate.getName(), inmate.getSecurityRating().getDisplayName(), inmate.isGangLeader());
         }
     }
 
