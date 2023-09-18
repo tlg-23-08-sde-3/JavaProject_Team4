@@ -1,12 +1,81 @@
 package org.prison.silicon;
 
 import org.junit.Before;
+import org.junit.Test;
+import org.prison.silicon.population.HighSecurityInmate;
+import org.prison.silicon.population.Inmate;
+import org.prison.silicon.population.LowSecurityInmate;
+import org.prison.silicon.population.MediumSecurityInmate;
+
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
 public class FacilityTest {
+    Map<Integer, Inmate> testMap;
+    Inmate in1, in2, in3;
 
     @Before
     public void setUp() throws Exception {
+        in1 = new LowSecurityInmate(1001, "Inmate1", false, SecurityRating.LOW);
+        in2 = new MediumSecurityInmate(1002, "Inmate2", false, SecurityRating.MEDIUM);
+        in3 = new HighSecurityInmate(1003, "Inmate3", true, SecurityRating.HIGH);
+    }
+
+    @Test
+    public void facility_validFacilityCreated_withThreeArgContructor() {
+        Facility kitchen = new Facility(FacilityList.KITCHEN, 15, SecurityRating.LOW);
+        assertEquals(FacilityList.KITCHEN, kitchen.getName());
+        assertEquals(15, kitchen.getMaxCapacity());
+        assertEquals(SecurityRating.LOW, kitchen.getSecurityRating());
+    }
+
+    @Test
+    public void facility_emptyInmateMapCreated_whenFacilityCreated() {
+        Facility kitchen = new Facility(FacilityList.KITCHEN, 15, SecurityRating.LOW);
+        assertEquals(0, kitchen.getInmateMap().size());
+    }
+
+    @Test
+    public void addInmate_inmateAddedToCurrentInmatesMap_whenSingleInmatePassed() {
+        Facility kitchen = new Facility(FacilityList.KITCHEN, 15, SecurityRating.LOW);
+        kitchen.addInmate(in1);
+        assertEquals(1, kitchen.getInmateMap().size());
+        assertArrayEquals(new Integer[]{1001}, kitchen.getInmatesIds());
+    }
+
+    @Test
+    public void addInmate_inmatesAddedToCurrentInmatesMap_whenMultipleInmatesPassed() {
+        Facility kitchen = new Facility(FacilityList.KITCHEN, 15, SecurityRating.LOW);
+        kitchen.addInmate(in1, in2, in3);
+        assertEquals(3, kitchen.getInmateMap().size());
+        assertArrayEquals(new Integer[]{1001, 1002, 1003}, kitchen.getInmatesIds());
+    }
+
+    @Test
+    public void removeInmate_inmateRemovedFromCurrentInmatesMap_whenSingleInmatePassed() {
+        Facility kitchen = new Facility(FacilityList.KITCHEN, 15, SecurityRating.LOW);
+        kitchen.addInmate(in1);
+        kitchen.removeInmate(1001);
+        assertEquals(0, kitchen.getInmateMap().size());
+        assertArrayEquals(new Integer[]{}, kitchen.getInmatesIds());
+    }
+
+    @Test
+    public void removeInmate_inmateRemovedFromCurrentInmatesMap_whenMultipleInmatePassed() {
+        Facility kitchen = new Facility(FacilityList.KITCHEN, 15, SecurityRating.LOW);
+        kitchen.addInmate(in1, in2, in3);
+        assertEquals(3, kitchen.getInmateMap().size());
+        assertArrayEquals(new Integer[]{1001, 1002, 1003}, kitchen.getInmatesIds());
+        kitchen.removeInmate(1001, 1002);
+        assertEquals(1, kitchen.getInmateMap().size());
+        assertArrayEquals(new Integer[]{1003}, kitchen.getInmatesIds());
+    }
+
+    @Test
+    public void displayCurrentInmates_inmatesDisplayed_whenCurrentInmateMapPopulated() {
+        Facility kitchen = new Facility(FacilityList.KITCHEN, 15, SecurityRating.LOW);
+        kitchen.addInmate(in1, in2, in3);
+        kitchen.displayCurrentInmates();
     }
 }

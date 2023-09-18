@@ -5,7 +5,7 @@ import org.prison.silicon.SecurityRating;
 
 import java.time.LocalDate;
 
-class MediumSecurityInmate extends Inmate{
+public class MediumSecurityInmate extends Inmate{
 
     public MediumSecurityInmate(int idNumber, String name, boolean gangLeader, SecurityRating securityRating){
         super(idNumber, name, gangLeader, securityRating);
