@@ -46,7 +46,7 @@ public class Prison {
     public void calculateRiskRating() {
         int sum = 0;
         for (Facility facility : prisonMap.keySet()) {
-            sum = facility.getRiskRating();
+            sum += facility.getRiskRating();
         }
         this.riskRating = sum / prisonMap.size();
     }
@@ -56,8 +56,7 @@ public class Prison {
             System.out.println(facility.getName().getDisplayName());
             System.out.println("===========================================================");
             for (Inmate inmate : facility.getInmateMap().values()) {
-                System.out.printf("ID: %d, Name: %s, Security Rating: %s, Gang Leader: %s, Happiness: int\n",
-                        inmate.getIdNumber(), inmate.getName(), inmate.getSecurityRating().getDisplayName(), inmate.isGangLeader());
+                System.out.println(inmate);
             }
             System.out.println("===========================================================");
         }

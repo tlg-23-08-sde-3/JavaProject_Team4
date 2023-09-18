@@ -3,13 +3,13 @@ package org.prison.silicon.population;
 import org.prison.silicon.FacilityList;
 import org.prison.silicon.SecurityRating;
 
-import javax.swing.*;
-
 public abstract class Inmate implements Comparable<Inmate> {
     private int idNumber;
     private String name;
     private boolean gangLeader;
     private SecurityRating securityRating;
+    private int happiness;
+    private FacilityList currentLocation;
 
     public Inmate(int idNumber, String name, boolean gangLeader, SecurityRating securityRating) {
         setIdNumber(idNumber);
@@ -64,5 +64,28 @@ public abstract class Inmate implements Comparable<Inmate> {
 
     public void setSecurityRating(SecurityRating securityRating) {
         this.securityRating = securityRating;
+    }
+
+    public int getHappiness() {
+        return happiness;
+    }
+
+    public void setHappiness(int happiness) {
+        this.happiness = happiness;
+    }
+
+    public FacilityList getCurrentLocation() {
+        return currentLocation;
+    }
+
+    public void setCurrentLocation(FacilityList currentLocation) {
+        this.currentLocation = currentLocation;
+    }
+
+    @Override
+    public String toString() {
+        String result = String.format("ID: %d, Name: %s, Current Location: %s, Security Rating: %s, Gang Leader: %s, Happiness: %d\n",
+                this.getIdNumber(), this.getName(), this.getCurrentLocation().getDisplayName(), this.getSecurityRating().getDisplayName(), this.isGangLeader(), this.getHappiness());
+        return result;
     }
 }

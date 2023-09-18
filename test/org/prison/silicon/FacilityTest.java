@@ -73,7 +73,15 @@ public class FacilityTest {
     }
 
     @Test
-    public void displayCurrentInmates_inmatesDisplayed_whenCurrentInmateMapPopulated() {
+    public void calculateRiskRating_providesValidRiskRating_whenCurrentInmateMapPopulated() {
+        Facility kitchen = new Facility(FacilityList.KITCHEN, 15, SecurityRating.LOW);
+        kitchen.addInmate(in1, in2, in3);
+        kitchen.calculateRiskRating();
+        assertEquals(60, kitchen.getRiskRating());
+    }
+
+    @Test
+    public void displayCurrentInmates_NotTrueTest_JustForVerification() {
         Facility kitchen = new Facility(FacilityList.KITCHEN, 15, SecurityRating.LOW);
         kitchen.addInmate(in1, in2, in3);
         kitchen.displayCurrentInmates();
