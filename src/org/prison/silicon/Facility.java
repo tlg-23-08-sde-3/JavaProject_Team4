@@ -5,7 +5,7 @@ import org.prison.silicon.population.Inmate;
 import java.util.Map;
 import java.util.TreeMap;
 
-class Facility {
+public class Facility {
     private final FacilityList name;
     private final int maxCapacity;
     private final SecurityRating securityRating;
@@ -34,7 +34,7 @@ class Facility {
         }
     }
 
-    public  void calculateRiskRating() {
+    public void calculateRiskRating() {
         // TODO: Add happiness value to inmates. This will average the happiness of the current inmates
         int avgHappiness = 50;
         int ratingAdjHappiness = (100 - avgHappiness) / 2;
@@ -66,7 +66,7 @@ class Facility {
         return securityRating;
     }
 
-    public  int getCount() {
+    public int getCount() {
         return currentInmates.size();
     }
 

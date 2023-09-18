@@ -28,7 +28,7 @@ public abstract class Inmate implements Comparable<Inmate> {
     public abstract void sleep();
 
     @Override
-    public int compareTo(Inmate other){
+    public int compareTo(Inmate other) {
         return this.getIdNumber() - other.getIdNumber();
     }
 

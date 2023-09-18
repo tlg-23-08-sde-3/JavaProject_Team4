@@ -9,6 +9,7 @@ import static org.junit.Assert.*;
 
 public class MediumSecurityInmateTest {
     MediumSecurityInmate testInmate;
+
     @Before
     public void setUp() {
         testInmate = new MediumSecurityInmate(
