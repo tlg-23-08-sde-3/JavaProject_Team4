@@ -3,16 +3,13 @@ package org.prison.silicon.population;
 import org.prison.silicon.FacilityList;
 import org.prison.silicon.SecurityRating;
 
-import java.time.LocalDate;
+import javax.swing.*;
 
-public abstract class Inmate {
+public abstract class Inmate implements Comparable<Inmate> {
     private int idNumber;
     private String name;
     private boolean gangLeader;
-    private SecurityRating securityRating; // created in the org.prison.silicon package by Chris
-
-    // private no-args constructor
-    private Inmate(){};
+    private SecurityRating securityRating;
 
     public Inmate(int idNumber, String name, boolean gangLeader, SecurityRating securityRating) {
         setIdNumber(idNumber);
@@ -29,6 +26,11 @@ public abstract class Inmate {
     public abstract void eat();
 
     public abstract void sleep();
+
+    @Override
+    public int compareTo(Inmate other){
+        return this.getIdNumber() - other.getIdNumber();
+    }
 
     // Accessor Methods
 
