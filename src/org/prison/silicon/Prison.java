@@ -5,15 +5,15 @@ import org.prison.silicon.population.Inmate;
 import java.util.HashMap;
 import java.util.Map;
 
-class Prison {
+public class Prison {
     private final String name;
+    private final Map<Facility, SecurityRating> prisonMap;
     private boolean lockDown;
     private int funds;
     private int totalDays;
     private int riskRating;
-    private final Map<Facility, SecurityRating> prisonMap;
 
-    Prison(String name, Facility facility, Facility... facilities) {
+    public Prison(String name, Facility facility, Facility... facilities) {
         this.name = name;
         prisonMap = new HashMap<>();
         this.prisonMap.put(facility, facility.getSecurityRating());

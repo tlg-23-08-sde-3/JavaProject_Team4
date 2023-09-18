@@ -5,10 +5,10 @@ import org.prison.silicon.SecurityRating;
 
 import javax.swing.*;
 
-class LowSecurityInmate extends Inmate{
+public class LowSecurityInmate extends Inmate {
     private FacilityList currentLocation;
 
-    public LowSecurityInmate(int idNumber, String name, boolean gangLeader, SecurityRating securityRating){
+    public LowSecurityInmate(int idNumber, String name, boolean gangLeader, SecurityRating securityRating) {
         super(idNumber, name, gangLeader, securityRating);
         setCurrentLocation(FacilityList.LOW_SECURITY_UNIT);
     }
@@ -44,8 +44,9 @@ class LowSecurityInmate extends Inmate{
     public void setCurrentLocation(FacilityList currentLocation) {
         this.currentLocation = currentLocation;
     }
+
     // Invalid move method that generates a pop-up window
-    public void InvalidMove(FacilityList requestedLocation){
+    public void InvalidMove(FacilityList requestedLocation) {
         String message = "Inmate " + getIdNumber() + " is already in the " + this.getCurrentLocation() +
                 "\narea. Please select a different location.";
         String title = "Invalid Move To " + requestedLocation;
@@ -57,9 +58,9 @@ class LowSecurityInmate extends Inmate{
     }
 
     // Move the inmate to a new location
-    private void moveInmate(FacilityList newLocation){
-        try{
-            if(!this.getCurrentLocation().equals(newLocation)){
+    private void moveInmate(FacilityList newLocation) {
+        try {
+            if (!this.getCurrentLocation().equals(newLocation)) {
                 // assign the inmate to the new location
                 setCurrentLocation(newLocation);
                 System.out.printf("Inmate %s has been moved to %s", getIdNumber(), getCurrentLocation());
