@@ -9,11 +9,12 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class HighSecurityUnitPanel {
     JPanel highSecurityUnitPanel;
     JLabel title;
-    Map<Integer, Inmate> currentInmates;
+    Map<Integer, Inmate> currentInmates = new TreeMap<>();
 
     // Inmate image
     BufferedImage inmatePicture1 = ImageIO.read(new File("resources/images/prisoner.png"));
@@ -30,8 +31,9 @@ public class HighSecurityUnitPanel {
         highSecurityUnitPanel.setBorder(BorderFactory.createLineBorder(Color.black, 5, false));
         // highSecurityUnitPanel.setBounds(400, 10, 200, 200);
         highSecurityUnitPanel.setBackground(Color.lightGray);
+    }
 
-
+    private void paintInmates() {
         // Add inmate clipart based on the number of inmates in the LowSecurityUnit area.
         int xAxis = 25;
         int yAxis = 75;
@@ -59,6 +61,7 @@ public class HighSecurityUnitPanel {
     }
 
     public void updateInmateList(Map<Integer, Inmate> inmates) {
-        currentInmates = inmates;
+        currentInmates.putAll(inmates);
+        paintInmates();
     }
 }
