@@ -1,6 +1,5 @@
 package org.prison.silicon.gui;
 
-import org.prison.silicon.Facility;
 import org.prison.silicon.population.Inmate;
 
 import javax.imageio.ImageIO;
@@ -17,9 +16,13 @@ public class LowSecurityUnitPanel {
     private final JLabel title;
     private final Map<Integer, Inmate> currentInmates = new TreeMap<>();
 
-    // Inmate image
+    // Normal inmate image
     BufferedImage inmatePicture1 = ImageIO.read(new File("resources/images/prisoner.png"));
-    Image inmate1 = inmatePicture1.getScaledInstance(25, 50, Image.SCALE_DEFAULT);
+    Image normalInmateIcon = inmatePicture1.getScaledInstance(25, 50, Image.SCALE_DEFAULT);
+
+    // Gang leader inmate icon
+    BufferedImage inmatePicture2 = ImageIO.read(new File("resources/images/gangleader.png"));
+    Image gangLeaderInmateIcon = inmatePicture2.getScaledInstance(25, 50, Image.SCALE_DEFAULT);
 
     public LowSecurityUnitPanel() throws IOException {
         lowSecurityUnitPanel = new JPanel();
@@ -37,18 +40,30 @@ public class LowSecurityUnitPanel {
     // paints the inmate clipart for each inmate in currentInmates for this location
     private void paintInmates() {
         // Start x and y points
-        int xAxis = 25;
-        int yAxis = 75;
+        int xAxis = 20;
+        int yAxis = 40;
 
         try{
             for(Map.Entry<Integer, Inmate> inmate : currentInmates.entrySet()) {
                 // TODO: create JPanel for each inmate with NORTH = image & South = inmate ID
-                lowSecurityUnitPanel.add (new JLabel(new ImageIcon((inmate1)))).setBounds(xAxis, yAxis, 25, 50);
-                if( xAxis <= 250){
-                    xAxis += 50;
+                JPanel inmateIconPanel = new JPanel();
+                inmateIconPanel.setBackground(Color.lightGray);
+                inmateIconPanel.setLayout(null);
+                inmateIconPanel.setBounds(xAxis, yAxis, 40, 80);
+                JLabel testlabel = new JLabel(inmate.getKey().toString());
+                testlabel.setBounds(3, 60, 35, 20);
+                if(!inmate.getValue().isGangLeader()){
+                    inmateIconPanel.add (new JLabel(new ImageIcon((normalInmateIcon)))).setBounds(3, 1, 35, 65);
                 } else {
-                    xAxis = 25;
-                    yAxis += 75;
+                    inmateIconPanel.add(new JLabel(new ImageIcon((gangLeaderInmateIcon)))).setBounds(3, 1, 35, 65);
+                }
+                inmateIconPanel.add(testlabel);
+                lowSecurityUnitPanel.add(inmateIconPanel);
+                if( xAxis <= 250){
+                    xAxis += 41;
+                } else {
+                    xAxis = 20;
+                    yAxis += 85;
                 }
             }
         } catch (NullPointerException e) {
