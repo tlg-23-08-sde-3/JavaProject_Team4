@@ -13,9 +13,9 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class LowSecurityUnitPanel {
-    JPanel lowSecurityUnitPanel;
-    JLabel title;
-    Map<Integer, Inmate> currentInmates = new TreeMap<>();
+    private final JPanel lowSecurityUnitPanel;
+    private final JLabel title;
+    private final Map<Integer, Inmate> currentInmates = new TreeMap<>();
 
     // Inmate image
     BufferedImage inmatePicture1 = ImageIO.read(new File("resources/images/prisoner.png"));
@@ -27,7 +27,7 @@ public class LowSecurityUnitPanel {
         title = new JLabel();
         title.setText("Low Security Unit");
         title.setFont(title.getFont().deriveFont(Font.BOLD));
-        title.setBounds(100, 5, 150, 25);
+        title.setBounds(90, 5, 150, 25);
         lowSecurityUnitPanel.add(title);
         lowSecurityUnitPanel.setBorder(BorderFactory.createLineBorder(Color.black, 5, false));
         // lowSecurityUnitPanel.setBounds(10, 10, 200, 200);
