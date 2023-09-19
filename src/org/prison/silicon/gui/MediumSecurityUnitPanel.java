@@ -12,9 +12,9 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class MediumSecurityUnitPanel {
-    JPanel mediumSecurityUnitPanel;
-    JLabel title;
-    Map<Integer, Inmate> currentInmates = new TreeMap<>();
+    private final JPanel mediumSecurityUnitPanel;
+    private final JLabel title;
+    private final Map<Integer, Inmate> currentInmates = new TreeMap<>();
 
     // Inmate image
     BufferedImage inmatePicture1 = ImageIO.read(new File("resources/images/prisoner.png"));
@@ -26,7 +26,7 @@ public class MediumSecurityUnitPanel {
         title = new JLabel();
         title.setText("Medium Security Unit");
         title.setFont(title.getFont().deriveFont(Font.BOLD));
-        title.setBounds(100, 5, 150, 25);
+        title.setBounds(90, 5, 150, 25);
         mediumSecurityUnitPanel.add(title);
         mediumSecurityUnitPanel.setBorder(BorderFactory.createLineBorder(Color.black, 5, false));
         //mediumSecurityUnitPanel.setBounds(200, 10, 200, 200);
@@ -63,5 +63,6 @@ public class MediumSecurityUnitPanel {
     public void updateInmateList(Map<Integer, Inmate> inmates) {
         currentInmates.putAll(inmates);
         paintInmates();
+        System.out.println(currentInmates.size());
     }
 }
