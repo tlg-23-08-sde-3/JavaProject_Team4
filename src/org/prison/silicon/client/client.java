@@ -20,8 +20,6 @@ public class client {
     public static Facility kitchen = new Facility(FacilityList.KITCHEN, 75, SecurityRating.MEDIUM);
     public static Prison prison = new Prison("Prison", lowSecurityUnit, mediumSecurityUnit, highSecurityUnit, yard, kitchen);
 
-
-
     public static void main(String[] args) throws IOException {
         // Adding inmateLoadList to appropriate SecurityUnit based upon securityRating
         InmateLoader inLoader = new InmateLoader("resources/data/inmate-data.csv");
