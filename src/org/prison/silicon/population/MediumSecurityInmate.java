@@ -11,12 +11,14 @@ public class MediumSecurityInmate extends Inmate{
     public MediumSecurityInmate(int idNumber, String name, boolean gangLeader, SecurityRating securityRating){
         super(idNumber, name, gangLeader, securityRating);
         setCurrentLocation(FacilityList.MEDIUM_SECURITY_UNIT);
+        setHappiness(50);
     }
 
     @Override
     public void work() {
         // move to workshop
         moveInmate(FacilityList.WORK_AREA);
+        setHappiness(getHappiness() - 9);
     }
 
     @Override
@@ -29,6 +31,7 @@ public class MediumSecurityInmate extends Inmate{
     public void eat() {
         // move inmates from their current location to the kitchen
         moveInmate(FacilityList.KITCHEN);
+        setHappiness(getHappiness() + 5);
     }
 
     @Override
@@ -36,14 +39,7 @@ public class MediumSecurityInmate extends Inmate{
         // move inmates from their current location to the unit for sleep
         // by default moved to the medium security unit since they are a medium security inmate
         moveInmate(FacilityList.MEDIUM_SECURITY_UNIT);
-    }
-
-    public FacilityList getCurrentLocation() {
-        return currentLocation;
-    }
-
-    public void setCurrentLocation(FacilityList currentLocation) {
-        this.currentLocation = currentLocation;
+        setHappiness(getHappiness() + 5);
     }
 
     // Invalid move method that generates a pop-up window

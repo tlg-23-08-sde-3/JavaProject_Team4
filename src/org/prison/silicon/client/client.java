@@ -16,6 +16,8 @@ public class client {
     public static Facility kitchen = new Facility(FacilityList.KITCHEN, 75, SecurityRating.MEDIUM);
     public static Prison prison = new Prison("Prison", lowSecurityUnit, mediumSecurityUnit, highSecurityUnit, yard, kitchen);
 
+
+
     public static void main(String[] args) throws IOException {
 
         // launch GUI
