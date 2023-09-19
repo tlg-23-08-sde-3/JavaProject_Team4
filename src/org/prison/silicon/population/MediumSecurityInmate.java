@@ -41,31 +41,4 @@ public class MediumSecurityInmate extends Inmate{
         moveInmate(FacilityList.MEDIUM_SECURITY_UNIT);
         setHappiness(getHappiness() + 5);
     }
-
-    // Invalid move method that generates a pop-up window
-    public void InvalidMove(FacilityList requestedLocation){
-        String message = "Inmate " + getIdNumber() + " is already in the " + this.getCurrentLocation() +
-                "\narea. Please select a different location.";
-        String title = "Invalid Move To " + requestedLocation;
-
-        JOptionPane.showMessageDialog(null,
-                message,
-                title,
-                JOptionPane.WARNING_MESSAGE);
-    }
-
-    // Move the inmate to a new location
-    private void moveInmate(FacilityList newLocation){
-        try{
-            if(!this.getCurrentLocation().equals(newLocation)){
-                // assign the inmate to the new location
-                setCurrentLocation(newLocation);
-                System.out.printf("Inmate %s has been moved to %s", getIdNumber(), getCurrentLocation());
-            } else {
-                throw new IllegalArgumentException("Can't move an inmate to a location they are already in.");
-            }
-        } catch (IllegalArgumentException e) {
-            InvalidMove(newLocation);
-        }
-    }
 }

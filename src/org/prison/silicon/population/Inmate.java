@@ -3,6 +3,8 @@ package org.prison.silicon.population;
 import org.prison.silicon.FacilityList;
 import org.prison.silicon.SecurityRating;
 
+import javax.swing.*;
+
 public abstract class Inmate implements Comparable<Inmate> {
     private int idNumber;
     private String name;
@@ -16,6 +18,33 @@ public abstract class Inmate implements Comparable<Inmate> {
         setName(name);
         setGangLeader(gangLeader);
         setSecurityRating(securityRating);
+    }
+
+    // Move the inmate to a new location
+    void moveInmate(FacilityList newLocation){
+        try{
+            if(!this.getCurrentLocation().equals(newLocation)){
+                // assign the inmate to the new location
+                setCurrentLocation(newLocation);
+                System.out.printf("Inmate %s has been moved to %s", getIdNumber(), getCurrentLocation());
+            } else {
+                throw new IllegalArgumentException("Can't move an inmate to a location they are already in.");
+            }
+        } catch (IllegalArgumentException e) {
+            InvalidMove(newLocation);
+        }
+    }
+
+    // Invalid move method that generates a pop-up window
+    private void InvalidMove(FacilityList requestedLocation){
+        String message = "Inmate " + getIdNumber() + " is already in the " + this.getCurrentLocation() +
+                "\narea. Please select a different location.";
+        String title = "Invalid Move To " + requestedLocation;
+
+        JOptionPane.showMessageDialog(null,
+                message,
+                title,
+                JOptionPane.WARNING_MESSAGE);
     }
 
     // Business Abstract Methods - delegated to the subclasses
