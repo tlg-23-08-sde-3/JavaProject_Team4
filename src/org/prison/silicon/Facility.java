@@ -5,7 +5,7 @@ import org.prison.silicon.population.Inmate;
 import java.util.Map;
 import java.util.TreeMap;
 
-class Facility {
+public class Facility {
     private final FacilityList name;
     private final int maxCapacity;
     private final SecurityRating securityRating;
@@ -35,15 +35,21 @@ class Facility {
     }
 
     public  void calculateRiskRating() {
-        // TODO: Add happiness value to inmates. This will average the happiness of the current inmates
-        int avgHappiness = 50;
-        int ratingAdjHappiness = (100 - avgHappiness) / 2;
+        // Calculate avgHappiness and ratingAdjHappiness for currentInmateMap
+        double avgHappiness = currentInmates.values().stream()
+                .mapToInt(Inmate::getHappiness)
+                .average().getAsDouble();
+        System.out.println("AvgHappy: " + avgHappiness);
+        int ratingAdjHappiness = (int) (100 - avgHappiness) / 2;
+        System.out.println("adjHappy: " + ratingAdjHappiness);
         // Facility being at max capacity will increase riskRating by 50
-        int ratingAdjCapacity = (currentInmates.size() / getMaxCapacity()) * 50;
+        double ratingAdjCapacity = ((double) currentInmates.size() / getMaxCapacity()) * 50;
+        System.out.println("adjCap: " + ratingAdjCapacity);
         // Add a certain amount for each gangLeader
         int ratingAdjGang =
                 (int) currentInmates.values().stream().filter(Inmate::isGangLeader).count() * 25;
-        this.riskRating = ratingAdjHappiness + ratingAdjCapacity + ratingAdjHappiness;
+        System.out.println("adjGang: " + ratingAdjGang);
+        this.riskRating = ratingAdjHappiness + (int) ratingAdjCapacity + ratingAdjGang;
     }
 
     public void displayCurrentInmates() {

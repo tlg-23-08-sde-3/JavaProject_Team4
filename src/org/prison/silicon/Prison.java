@@ -56,7 +56,7 @@ public class Prison {
             System.out.println(facility.getName().getDisplayName());
             System.out.println("===========================================================");
             for (Inmate inmate : facility.getInmateMap().values()) {
-                System.out.println(inmate);
+                System.out.print(inmate);
             }
             System.out.println("===========================================================");
         }

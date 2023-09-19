@@ -11,12 +11,14 @@ public class HighSecurityInmate extends Inmate{
     public HighSecurityInmate(int idNumber, String name, boolean gangLeader, SecurityRating securityRating){
         super(idNumber, name, gangLeader, securityRating);
         setCurrentLocation(FacilityList.HIGH_SECURITY_UNIT);
+        setHappiness(30);
     }
 
     @Override
     public void work() {
         // move to workshop
         moveInmate(FacilityList.WORK_AREA);
+        setHappiness(getHappiness() - 10);
     }
 
     @Override
@@ -29,20 +31,14 @@ public class HighSecurityInmate extends Inmate{
     public void eat() {
         // move inmates from their current location to the kitchen
         moveInmate(FacilityList.KITCHEN);
+        setHappiness(getHappiness() + 5);
     }
 
     @Override
     public void sleep() {
         // move inmates from their current location to the unit for sleep
         moveInmate(FacilityList.HIGH_SECURITY_UNIT);
-    }
-
-    public FacilityList getCurrentLocation() {
-        return currentLocation;
-    }
-
-    public void setCurrentLocation(FacilityList currentLocation) {
-        this.currentLocation = currentLocation;
+        setHappiness(getHappiness() + 5);
     }
 
     // Invalid move method that generates a pop-up window

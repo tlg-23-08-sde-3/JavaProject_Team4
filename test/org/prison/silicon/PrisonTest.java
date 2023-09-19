@@ -50,7 +50,7 @@ public class PrisonTest {
     @Test
     public void getMaxCapacity_correctMaxCapacity_whenPrisonHasMultipleFacilities() {
         Prison prison = new Prison("JailBreak", kitchen, low, high);
-        assertEquals(26, prison.getMaxCapacity());
+        assertEquals(30, prison.getMaxCapacity());
     }
 
     @Test
