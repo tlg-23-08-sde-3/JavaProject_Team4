@@ -13,8 +13,10 @@ public class MainGui {
     LowSecurityUnitPanel lowSecurityUnitPanel = new LowSecurityUnitPanel();
     MediumSecurityUnitPanel mediumSecurityUnitPanel = new MediumSecurityUnitPanel();
     HighSecurityUnitPanel highSecurityUnitPanel = new HighSecurityUnitPanel();
+    UserInputPanel userInputPanel = new UserInputPanel();
     YardPanel yardPanel = new YardPanel();
     KitchenPanel kitchenPanel = new KitchenPanel();
+    WorkAreaPanel workAreaPanel = new WorkAreaPanel();
     ScorePanel scorePanel = new ScorePanel();
 
     public MainGui() throws IOException {
@@ -49,13 +51,15 @@ public class MainGui {
         mainFrame.add(lowSecurityUnitPanel.getLowSecurityUnitPanel());
         mainFrame.add(mediumSecurityUnitPanel.getMediumSecurityUnitPanel());
         mainFrame.add(highSecurityUnitPanel.getHighSecurityUnitPanel());
+        mainFrame.add(scorePanel.getScorePanel());
         mainFrame.add(yardPanel.getYardPanel());
         mainFrame.add(kitchenPanel.getKitchenPanel());
-        mainFrame.add(scorePanel.getScorePanel());
+        mainFrame.add(workAreaPanel.getWorkAreaPanel());
+        mainFrame.add(userInputPanel.getUserInputPanel());
 
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setLayout(new GridLayout(2, 2, 10, 10));
-        mainFrame.setSize(1000, 800);
+        mainFrame.setSize(1300, 800);
         mainFrame.setVisible(true);
     }
 

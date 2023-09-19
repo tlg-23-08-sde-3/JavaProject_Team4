@@ -4,10 +4,14 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ScorePanel {
-    JPanel scorePanel;
-    JLabel title;
-    JLabel riotStatusLabel;
-    JPanel riotStatusBar;
+    private final JPanel scorePanel;
+    private final JLabel title;
+    // Riot Status bar and label
+    private final JLabel riotStatusLabel;
+    private final JPanel riotStatusBar;
+
+
+
 
     public ScorePanel() {
 
@@ -17,7 +21,7 @@ public class ScorePanel {
         title = new JLabel();
         title.setText("Prison Status");
         title.setFont(new Font("Serif", Font.BOLD, 35));
-        title.setBounds(55, 5, 300, 40);
+        title.setBounds(60, 5, 300, 40);
         scorePanel.add(title);
         scorePanel.setBorder(BorderFactory.createLineBorder(Color.black, 5, false));
         scorePanel.setBackground(Color.gray);
@@ -35,8 +39,6 @@ public class ScorePanel {
         // Add the riot status bar and label to the main scorePanel
         scorePanel.add(riotStatusBar);
         scorePanel.add(riotStatusLabel);
-
-
     }
 
     public JPanel getScorePanel() {

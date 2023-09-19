@@ -11,25 +11,27 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class HighSecurityUnitPanel {
-    private final JPanel highSecurityUnitPanel;
+public class WorkAreaPanel {
+    private final JPanel workAreaPanel;
     private final JLabel title;
     private final Map<Integer, Inmate> currentInmates = new TreeMap<>();
 
     // Inmate image
-    BufferedImage inmatePicture1 = ImageIO.read(new File("resources/images/prisoner.png"));
-    Image inmate1 = inmatePicture1.getScaledInstance(25, 50, Image.SCALE_DEFAULT);
+    private final BufferedImage inmatePicture1 = ImageIO.read(new File("resources/images/prisoner.png"));
+    private final Image inmate1 = inmatePicture1.getScaledInstance(25, 50, Image.SCALE_DEFAULT);
 
-    public HighSecurityUnitPanel() throws IOException {
-        highSecurityUnitPanel = new JPanel();
-        highSecurityUnitPanel.setLayout(null);
+
+    public WorkAreaPanel() throws IOException {
+        workAreaPanel = new JPanel();
+        workAreaPanel.setLayout(null);
         title = new JLabel();
-        title.setText("High Security Unit");
+        title.setText("Work Area");
         title.setFont(title.getFont().deriveFont(Font.BOLD));
-        title.setBounds(90, 5, 150, 25);
-        highSecurityUnitPanel.add(title);
-        highSecurityUnitPanel.setBorder(BorderFactory.createLineBorder(Color.black, 5, false));
-        highSecurityUnitPanel.setBackground(Color.lightGray);
+        title.setBounds(120, 5, 150, 25);
+        workAreaPanel.add(title);
+        workAreaPanel.setBorder(BorderFactory.createLineBorder(Color.black, 5, false));
+        //mediumSecurityUnitPanel.setBounds(200, 10, 200, 200);
+        workAreaPanel.setBackground(Color.lightGray);
     }
 
     private void paintInmates() {
@@ -42,7 +44,7 @@ public class HighSecurityUnitPanel {
         try{
             for(Map.Entry<Integer, Inmate> inmate : currentInmates.entrySet()) {
                 // TODO: create JPanel for each inmate with NORTH = image & South = inmate ID
-                highSecurityUnitPanel.add (new JLabel(new ImageIcon((inmate1)))).setBounds(xAxis, yAxis, 25, 50);
+                workAreaPanel.add (new JLabel(new ImageIcon((inmate1)))).setBounds(xAxis, yAxis, 25, 50);
                 if( xAxis <= 250){
                     xAxis += 50;
                 } else {
@@ -55,8 +57,8 @@ public class HighSecurityUnitPanel {
         }
     }
 
-    public JPanel getHighSecurityUnitPanel() {
-        return highSecurityUnitPanel;
+    public JPanel getWorkAreaPanel() {
+        return workAreaPanel;
     }
 
     public void updateInmateList(Map<Integer, Inmate> inmates) {
