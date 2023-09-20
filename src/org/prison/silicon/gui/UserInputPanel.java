@@ -112,9 +112,6 @@ public class UserInputPanel {
         userInputPanel.add(inmateFieldLabel);
         userInputPanel.add(inmatefield);
         userInputPanel.add(moveButton);
-
-        System.out.println("from user input: ");
-        System.out.println(prison.getCount());
     }
 
     public JPanel getUserInputPanel() {

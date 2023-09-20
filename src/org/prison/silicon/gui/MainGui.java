@@ -24,8 +24,6 @@ public class MainGui {
 
     public MainGui(Prison prison) throws IOException {
 
-        System.out.println("main painted");
-
         userInputPanel = new UserInputPanel(prison);
         lowSecurityUnitPanel = new LowSecurityUnitPanel();
         mediumSecurityUnitPanel = new MediumSecurityUnitPanel();
