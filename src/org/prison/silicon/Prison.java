@@ -72,6 +72,16 @@ public class Prison {
         return result;
     }
 
+    private Facility parseFacility(String displayName) {
+        Facility result = null;
+        for (Facility facility : getPrisonMap().keySet()) {
+            if (facility.getName().getDisplayName().equals(displayName)) {
+                result = facility;
+            }
+        }
+        return result;
+    }
+
     public boolean moveInmate(Inmate inmate, FacilityList newLocation){
         boolean successfulMove = false;
         try{
@@ -82,7 +92,7 @@ public class Prison {
                 currentFacility.removeInmate(inmate.getIdNumber());
                 // move inmate to the new location and update currentLocation
                 newFacility.addInmate(inmate);
-                System.out.printf("Inmate %s has been moved to %s\n", inmate.getIdNumber(), inmate.getCurrentLocation());
+                System.out.printf("Inmate %s has been moved to %s\n", inmate.getIdNumber(), newFacility.getName().getDisplayName());
                 successfulMove = true;
                 currentFacility.calculateRiskRating();
                 newFacility.calculateRiskRating();
@@ -113,7 +123,6 @@ public class Prison {
             for (Integer i : facility.getInmateMap().keySet()) {
                 if (i == id) {
                     desiredInmate = facility.getInmateMap().get(i);
-                    System.out.println(desiredInmate);
                 }
             }
         }

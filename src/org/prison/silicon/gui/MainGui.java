@@ -1,6 +1,7 @@
 //package org.prison.silicon.gui;
 package org.prison.silicon.gui;
 
+import org.prison.silicon.Prison;
 import org.prison.silicon.population.Inmate;
 
 import javax.swing.*;
@@ -13,13 +14,15 @@ public class MainGui {
     LowSecurityUnitPanel lowSecurityUnitPanel = new LowSecurityUnitPanel();
     MediumSecurityUnitPanel mediumSecurityUnitPanel = new MediumSecurityUnitPanel();
     HighSecurityUnitPanel highSecurityUnitPanel = new HighSecurityUnitPanel();
-    UserInputPanel userInputPanel = new UserInputPanel();
+    private Prison prison;
+
     YardPanel yardPanel = new YardPanel();
     KitchenPanel kitchenPanel = new KitchenPanel();
     WorkAreaPanel workAreaPanel = new WorkAreaPanel();
     ScorePanel scorePanel = new ScorePanel();
 
-    public MainGui() throws IOException {
+    public MainGui(Prison prison) throws IOException {
+        UserInputPanel userInputPanel = new UserInputPanel(prison);
 
         // Medium Security Unit Panel
         JPanel medSec = new JPanel();

@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class JailBreakApp {
-    private static final int winTimeLimit = 5000;
+    private static final int winTimeLimit = 10000;
     public static Facility lowSecurityUnit = new Facility(FacilityList.LOW_SECURITY_UNIT, 15, SecurityRating.LOW);
     public static Facility mediumSecurityUnit = new Facility(FacilityList.MEDIUM_SECURITY_UNIT, 15, SecurityRating.MEDIUM);
     public static Facility highSecurityUnit = new Facility(FacilityList.HIGH_SECURITY_UNIT, 15, SecurityRating.HIGH);
@@ -34,7 +34,7 @@ public class JailBreakApp {
 
     private void loadGUI() throws IOException {
         // launch GUI
-        MainGui mainGui = new MainGui();
+        MainGui mainGui = new MainGui(prison);
 
 
         // Update inmate counts in each area by passing Maps in this order
