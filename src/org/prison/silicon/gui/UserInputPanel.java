@@ -1,5 +1,6 @@
 package org.prison.silicon.gui;
 
+
 import org.prison.silicon.facility.FacilityList;
 import org.prison.silicon.facility.Prison;
 
@@ -11,7 +12,6 @@ import java.awt.event.ActionListener;
 public class UserInputPanel {
     private final JPanel userInputPanel;
     private final JLabel title;
-
     // User action labels
     private final JLabel actionMenuLabel;
     private final JLabel inmateFieldLabel;
@@ -112,6 +112,9 @@ public class UserInputPanel {
         userInputPanel.add(inmateFieldLabel);
         userInputPanel.add(inmatefield);
         userInputPanel.add(moveButton);
+
+        System.out.println("from user input: ");
+        System.out.println(prison.getCount());
     }
 
     public JPanel getUserInputPanel() {

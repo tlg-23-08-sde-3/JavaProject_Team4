@@ -2,6 +2,7 @@
 package org.prison.silicon.gui;
 
 import org.prison.silicon.facility.Prison;
+
 import org.prison.silicon.population.Inmate;
 
 import javax.swing.*;
@@ -11,43 +12,28 @@ import java.util.Map;
 
 public class MainGui {
     JFrame mainFrame;
-    LowSecurityUnitPanel lowSecurityUnitPanel = new LowSecurityUnitPanel();
-    MediumSecurityUnitPanel mediumSecurityUnitPanel = new MediumSecurityUnitPanel();
-    HighSecurityUnitPanel highSecurityUnitPanel = new HighSecurityUnitPanel();
-    private Prison prison;
+    LowSecurityUnitPanel lowSecurityUnitPanel;
+    MediumSecurityUnitPanel mediumSecurityUnitPanel;
+    HighSecurityUnitPanel highSecurityUnitPanel;
+    UserInputPanel userInputPanel;
+    YardPanel yardPanel;
+    KitchenPanel kitchenPanel;
+    WorkAreaPanel workAreaPanel;
+    ScorePanel scorePanel;
 
-    YardPanel yardPanel = new YardPanel();
-    KitchenPanel kitchenPanel = new KitchenPanel();
-    WorkAreaPanel workAreaPanel = new WorkAreaPanel();
-    ScorePanel scorePanel = new ScorePanel();
 
     public MainGui(Prison prison) throws IOException {
-        UserInputPanel userInputPanel = new UserInputPanel(prison);
 
-        // Medium Security Unit Panel
-        JPanel medSec = new JPanel();
-        medSec.setBorder(BorderFactory.createLineBorder(Color.black, 5, true));
-        JLabel medSecTitle = new JLabel("Medium Security Unit");
-        medSecTitle.setFont(medSecTitle.getFont().deriveFont(Font.BOLD));
-        medSec.add(medSecTitle).setLocation(50, 30);
-        medSec.setBackground(Color.lightGray);
+        System.out.println("main painted");
 
-
-        // Low Security Unit Panel
-        JPanel highSec = new JPanel();
-        highSec.setBorder(BorderFactory.createLineBorder(Color.black, 5, true));
-        JLabel highSecTitle = new JLabel("High Security Unit");
-        highSecTitle.setFont(highSecTitle.getFont().deriveFont(Font.BOLD));
-        highSec.add(highSecTitle).setLocation(50, 30);
-        highSec.setBackground(Color.lightGray);
-
-        // Yard Panel
-        JPanel yard = new JPanel();
-        yard.setBorder(BorderFactory.createLineBorder(Color.black, 5, true));
-        JLabel yardTitle = new JLabel("Yard Area");
-        yardTitle.setFont(yardTitle.getFont().deriveFont(Font.BOLD));
-        yard.add(yardTitle).setLocation(50, 30);
-        yard.setBackground(Color.lightGray);
+        userInputPanel = new UserInputPanel(prison);
+        lowSecurityUnitPanel = new LowSecurityUnitPanel();
+        mediumSecurityUnitPanel = new MediumSecurityUnitPanel();
+        highSecurityUnitPanel = new HighSecurityUnitPanel();
+        yardPanel = new YardPanel();
+        kitchenPanel = new KitchenPanel();
+        workAreaPanel = new WorkAreaPanel();
+        scorePanel = new ScorePanel();
 
         mainFrame = new JFrame();
         mainFrame.setTitle("JailBreak");
@@ -64,6 +50,14 @@ public class MainGui {
         mainFrame.setLayout(new GridLayout(2, 2, 10, 10));
         mainFrame.setSize(1300, 800);
         mainFrame.setVisible(true);
+        mainFrame.setResizable(false);
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
     }
 
     // Action method to repaint the GUI as needed
