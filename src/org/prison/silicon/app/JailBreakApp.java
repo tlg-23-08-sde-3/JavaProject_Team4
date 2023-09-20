@@ -18,12 +18,14 @@ public class JailBreakApp {
     public static Facility highSecurityUnit = new Facility(FacilityList.HIGH_SECURITY_UNIT, 15, SecurityRating.HIGH);
     public static Facility yard = new Facility(FacilityList.YARD, 75, SecurityRating.MEDIUM);
     public static Facility kitchen = new Facility(FacilityList.KITCHEN, 75, SecurityRating.MEDIUM);
-    public static Prison prison = new Prison("Prison", lowSecurityUnit, mediumSecurityUnit, highSecurityUnit, yard, kitchen);
+    public static Facility workArea = new Facility(FacilityList.WORK_AREA, 75, SecurityRating.MEDIUM);
+    public static Prison prison = new Prison("Prison", lowSecurityUnit, mediumSecurityUnit, highSecurityUnit, yard, kitchen, workArea);
 
     public void execute() throws IOException {
         loadInmates();
-        loadGUI();
-        startWinTimer();
+        //loadGUI();
+        //startWinTimer();
+        prison.displayInmates();
     }
 
     private void startWinTimer() {
