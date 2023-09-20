@@ -1,7 +1,7 @@
 package org.prison.silicon.gui;
 
 import org.junit.Test;
-import org.prison.silicon.Prison;
+import org.prison.silicon.facility.Prison;
 
 import java.io.IOException;
 

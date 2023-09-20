@@ -1,7 +1,7 @@
 package org.prison.silicon.population;
 
-import org.prison.silicon.FacilityList;
-import org.prison.silicon.Prison;
+import org.prison.silicon.facility.FacilityList;
+import org.prison.silicon.facility.Prison;
 import org.prison.silicon.SecurityRating;
 
 public class MediumSecurityInmate extends Inmate{

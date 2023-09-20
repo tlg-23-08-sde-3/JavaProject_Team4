@@ -1,14 +1,8 @@
 package org.prison.silicon.population;
 
-import org.prison.silicon.Facility;
-import org.prison.silicon.FacilityList;
-import org.prison.silicon.Prison;
+import org.prison.silicon.facility.FacilityList;
+import org.prison.silicon.facility.Prison;
 import org.prison.silicon.SecurityRating;
-
-import javax.swing.*;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
 
 public abstract class Inmate implements Comparable<Inmate> {
     private int idNumber;

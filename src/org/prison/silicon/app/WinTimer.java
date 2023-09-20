@@ -1,8 +1,5 @@
 package org.prison.silicon.app;
 
-import org.prison.silicon.FacilityList;
-import org.prison.silicon.population.Inmate;
-
 import javax.swing.*;
 
 class WinTimer extends Thread{
