@@ -1,6 +1,8 @@
 package org.prison.silicon.gui;
 
-import org.prison.silicon.Prison;
+
+import org.prison.silicon.facility.FacilityList;
+import org.prison.silicon.facility.Prison;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,8 +23,8 @@ public class UserInputPanel {
     // User action buttons
     private final JButton moveButton;
 
-    String[] facilities = {"Low Security Area", "Medium Security Area",
-            "High Security Area", "Kitchen", "Yard", "Work Area"};
+    String[] facilities = {"LOW_SECURITY_UNIT", "MEDIUM_SECURITY_UNIT",
+            "HIGH_SECURITY_UNIT", "KITCHEN", "YARD", "WORK_AREA"};
     private final JComboBox facilitiesSelection;
     private final JLabel facilitiesSelectionLabel;
 
@@ -84,7 +86,21 @@ public class UserInputPanel {
                 String selectedAction = (String) actionSelectionMenu.getSelectedItem();
                 String selectedFacility = (String) facilitiesSelection.getSelectedItem();
                 int inmateId = Integer.parseInt(inmatefield.getText());
-                System.out.println(selectedAction + " - " + selectedFacility + " - " + inmateId);
+                switch (selectedAction) {
+                    case "Eat":
+                        prison.locateInmateByID(inmateId).eat();
+                        break;
+                    case "Sleep":
+                        prison.locateInmateByID(inmateId).sleep();
+                        break;
+                    case "Work":
+                        prison.locateInmateByID(inmateId).work();
+                        break;
+                    case "Move":
+                        prison.locateInmateByID(inmateId).move(FacilityList.valueOf(selectedFacility));
+                        break;
+                }
+                System.out.println(prison.locateInmateByID(inmateId));
             }
         });
 

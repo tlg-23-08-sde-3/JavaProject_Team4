@@ -1,10 +1,12 @@
-package org.prison.silicon;
+package org.prison.silicon.facility;
 
+import org.prison.silicon.SecurityRating;
 import org.prison.silicon.population.Inmate;
 
 import javax.swing.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Prison {
     private String name;
@@ -61,6 +63,78 @@ public class Prison {
         }
     }
 
+    private Facility parseFacility(FacilityList listName) {
+        Facility result = null;
+        for (Facility facility : getPrisonMap().keySet()) {
+            if (facility.getName().equals(listName)) {
+                result = facility;
+            }
+        }
+        return result;
+    }
+
+    private Facility parseFacility(String displayName) {
+        Facility result = null;
+        for (Facility facility : getPrisonMap().keySet()) {
+            if (facility.getName().getDisplayName().equals(displayName)) {
+                result = facility;
+            }
+        }
+        return result;
+    }
+
+    public boolean moveInmate(Inmate inmate, FacilityList newLocation){
+        boolean successfulMove = false;
+        try{
+            if(!inmate.getCurrentLocation().equals(newLocation)){
+                Facility currentFacility = parseFacility(inmate.getCurrentLocation());
+                Facility newFacility = parseFacility(newLocation);
+                // Move the inmate to a new location
+                currentFacility.removeInmate(inmate.getIdNumber());
+                // move inmate to the new location and update currentLocation
+                newFacility.addInmate(inmate);
+                System.out.printf("Inmate %s has been moved to %s\n", inmate.getIdNumber(), newFacility.getName().getDisplayName());
+                successfulMove = true;
+                currentFacility.calculateRiskRating();
+                newFacility.calculateRiskRating();
+                calculateRiskRating();
+            } else {
+                throw new IllegalArgumentException("Can't move an inmate to a location they are already in.");
+            }
+        } catch (IllegalArgumentException e) {
+            String message = "Inmate " + inmate.getIdNumber() + " is already in the "
+                    + inmate.getCurrentLocation().getDisplayName() + "\narea. Please select a different location.";
+            String title = "Invalid Move To " + newLocation.getDisplayName();
+            InvalidChoice(title, message);
+        }
+        return successfulMove;
+    }
+
+    // Invalid move method that generates a pop-up window
+    private void InvalidChoice(String title, String message){
+        JOptionPane.showMessageDialog(null,
+                message,
+                title,
+                JOptionPane.WARNING_MESSAGE);
+    }
+
+    public Inmate locateInmateByID(int id) {
+        Inmate desiredInmate = null;
+        for (Facility facility : getPrisonMap().keySet()) {
+            for (Integer i : facility.getInmateMap().keySet()) {
+                if (i == id) {
+                    desiredInmate = facility.getInmateMap().get(i);
+                }
+            }
+        }
+        if (Objects.equals(desiredInmate, null)) {
+        String message = "Inmate ID \"" + id + "\" was not found ";
+        String title = "Inmate ID Not Found";
+        InvalidChoice(title, message);
+    }
+        return desiredInmate;
+    }
+
     // Getters
     public String getName() {
         return name;
@@ -80,51 +154,5 @@ public class Prison {
 
     public Map<Facility, SecurityRating> getPrisonMap() {
         return prisonMap;
-    }
-
-    private Facility parseFacility(FacilityList listName) {
-        Facility result = null;
-        for (Facility facility : getPrisonMap().keySet()) {
-            if (facility.getName().equals(listName)) {
-                result = facility;
-            }
-        }
-        return result;
-    }
-
-    public boolean moveInmate(Inmate inmate, FacilityList newLocation){
-        boolean successfulMove = false;
-        try{
-            if(!inmate.getCurrentLocation().equals(newLocation)){
-        Facility currentFacility = parseFacility(inmate.getCurrentLocation());
-        Facility newFacility = parseFacility(newLocation);
-        // Move the inmate to a new location
-        currentFacility.removeInmate(inmate.getIdNumber());
-        // move inmate to the new location and update currentLocation
-        newFacility.addInmate(inmate);
-        System.out.printf("Inmate %s has been moved to %s\n", inmate.getIdNumber(), inmate.getCurrentLocation());
-        successfulMove = true;
-        currentFacility.calculateRiskRating();
-        newFacility.calculateRiskRating();
-        calculateRiskRating();
-            } else {
-                throw new IllegalArgumentException("Can't move an inmate to a location they are already in.");
-            }
-        } catch (IllegalArgumentException e) {
-            InvalidMove(inmate, newLocation);
-        }
-        return successfulMove;
-    }
-
-    // Invalid move method that generates a pop-up window
-    private void InvalidMove(Inmate inmate, FacilityList requestedLocation){
-        String message = "Inmate " + inmate.getIdNumber() + " is already in the " + inmate.getCurrentLocation().getDisplayName() +
-                "\narea. Please select a different location.";
-        String title = "Invalid Move To " + requestedLocation;
-
-        JOptionPane.showMessageDialog(null,
-                message,
-                title,
-                JOptionPane.WARNING_MESSAGE);
     }
 }

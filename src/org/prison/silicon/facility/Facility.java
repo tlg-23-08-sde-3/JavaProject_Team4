@@ -1,5 +1,6 @@
-package org.prison.silicon;
+package org.prison.silicon.facility;
 
+import org.prison.silicon.SecurityRating;
 import org.prison.silicon.population.Inmate;
 
 import java.util.Map;

@@ -1,7 +1,8 @@
 //package org.prison.silicon.gui;
 package org.prison.silicon.gui;
 
-import org.prison.silicon.Prison;
+import org.prison.silicon.facility.Prison;
+
 import org.prison.silicon.population.Inmate;
 
 import javax.swing.*;
@@ -33,7 +34,6 @@ public class MainGui {
         kitchenPanel = new KitchenPanel();
         workAreaPanel = new WorkAreaPanel();
         scorePanel = new ScorePanel();
-
 
         mainFrame = new JFrame();
         mainFrame.setTitle("JailBreak");

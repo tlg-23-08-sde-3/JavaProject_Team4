@@ -1,8 +1,8 @@
 package org.prison.silicon.app;
 
-import org.prison.silicon.Facility;
-import org.prison.silicon.FacilityList;
-import org.prison.silicon.Prison;
+import org.prison.silicon.facility.Facility;
+import org.prison.silicon.facility.FacilityList;
+import org.prison.silicon.facility.Prison;
 import org.prison.silicon.SecurityRating;
 import org.prison.silicon.gui.MainGui;
 import org.prison.silicon.population.Inmate;
@@ -10,9 +10,10 @@ import org.prison.silicon.population.InmateLoader;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Random;
 
 public class JailBreakApp {
-    private static final int winTimeLimit = 5000;
+    private static final int winTimeLimit = 100_000;
     public static Facility lowSecurityUnit = new Facility(FacilityList.LOW_SECURITY_UNIT, 15, SecurityRating.LOW);
     public static Facility mediumSecurityUnit = new Facility(FacilityList.MEDIUM_SECURITY_UNIT, 15, SecurityRating.MEDIUM);
     public static Facility highSecurityUnit = new Facility(FacilityList.HIGH_SECURITY_UNIT, 15, SecurityRating.HIGH);
@@ -24,8 +25,7 @@ public class JailBreakApp {
     public void execute() throws IOException {
         loadInmates();
         loadGUI();
-        // startWinTimer();
-        prison.displayInmates();
+        startWinTimer();
     }
 
     private void startWinTimer() {
@@ -47,19 +47,31 @@ public class JailBreakApp {
                 kitchen.getInmateMap());
     }
     private void loadInmates() throws IOException {
-        // Adding inmateLoadList to appropriate SecurityUnit based upon securityRating
-        InmateLoader inLoader = new InmateLoader("resources/data/inmate-data.csv", prison);
+        // Adding inmateLoadList to random areas
+        Random ran = new Random();
+        int ranLoc = 0;
+        InmateLoader inLoader = new InmateLoader(prison);
         List<Inmate> inmateLoadList = inLoader.load();
-        for (int i = 0; i < inmateLoadList.size(); i++) {
-            switch (inmateLoadList.get(i).getSecurityRating()) {
-                case LOW:
-                    lowSecurityUnit.addInmate(inmateLoadList.get(i));
+        for (Inmate inmate : inmateLoadList) {
+            ranLoc = ran.nextInt(6);
+            switch (ranLoc) {
+                case 0:
+                    lowSecurityUnit.addInmate(inmate);
                     break;
-                case MEDIUM:
-                    mediumSecurityUnit.addInmate(inmateLoadList.get(i));
+                case 1:
+                    mediumSecurityUnit.addInmate(inmate);
                     break;
-                case HIGH:
-                    highSecurityUnit.addInmate(inmateLoadList.get(i));
+                case 2:
+                    highSecurityUnit.addInmate(inmate);
+                    break;
+                case 3:
+                    kitchen.addInmate(inmate);
+                    break;
+                case 4:
+                    yard.addInmate(inmate);
+                    break;
+                case 5:
+                    workArea.addInmate(inmate);
                     break;
             }
         }

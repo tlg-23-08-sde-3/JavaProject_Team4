@@ -1,7 +1,11 @@
-package org.prison.silicon;
+package org.prison.silicon.facility;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.prison.silicon.SecurityRating;
+import org.prison.silicon.facility.Facility;
+import org.prison.silicon.facility.FacilityList;
+import org.prison.silicon.facility.Prison;
 import org.prison.silicon.population.HighSecurityInmate;
 import org.prison.silicon.population.Inmate;
 import org.prison.silicon.population.LowSecurityInmate;
@@ -103,5 +107,18 @@ public class PrisonTest {
         Prison prison = new Prison("JailBreak", kitchen, low, high);
         assertFalse(prison.moveInmate(in1, FacilityList.LOW_SECURITY_UNIT));
         // popup displays. Will need to research how to test
+    }
+
+    @Test
+    public void findInmateById_returnsCorrectInmate_whenValidInmateIdPassed() {
+        Prison prison = new Prison("JailBreak", kitchen, low, high);
+        assertEquals(in4, prison.locateInmateByID(1004));
+        assertEquals("Inmate4", prison.locateInmateByID(1004).getName());
+    }
+
+    @Test
+    public void findInmateById_returnsPopup_whenIdNotFound() {
+        Prison prison = new Prison("JailBreak", kitchen, low, high);
+        prison.locateInmateByID(1010);
     }
 }

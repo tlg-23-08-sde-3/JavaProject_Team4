@@ -1,8 +1,8 @@
-package org.prison.silicon;
+package org.prison.silicon.facility;
 
 public enum FacilityList {
     LOW_SECURITY_UNIT("Low Security Unit"),
-    MEDIUM_SECURITY_UNIT("Medium Security"),
+    MEDIUM_SECURITY_UNIT("Medium Security Unit"),
     HIGH_SECURITY_UNIT("High Security Unit"),
     KITCHEN("Kitchen"),
     WORK_AREA("Work Area"),
