@@ -46,7 +46,7 @@ public class JailBreakApp {
     }
     private void loadInmates() throws IOException {
         // Adding inmateLoadList to appropriate SecurityUnit based upon securityRating
-        InmateLoader inLoader = new InmateLoader("resources/data/inmate-data.csv");
+        InmateLoader inLoader = new InmateLoader("resources/data/inmate-data.csv", prison);
         List<Inmate> inmateLoadList = inLoader.load();
         for (int i = 0; i < inmateLoadList.size(); i++) {
             switch (inmateLoadList.get(i).getSecurityRating()) {
