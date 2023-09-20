@@ -1,4 +1,4 @@
-package org.prison.silicon.client;
+package org.prison.silicon.app;
 
 import org.prison.silicon.Facility;
 import org.prison.silicon.FacilityList;
@@ -11,8 +11,8 @@ import org.prison.silicon.population.InmateLoader;
 import java.io.IOException;
 import java.util.List;
 
-// TODO: Look at adding controller to a .app package to control game like in DuckRace
-public class client {
+public class JailBreakApp {
+    private static final int winTimeLimit = 5000;
     public static Facility lowSecurityUnit = new Facility(FacilityList.LOW_SECURITY_UNIT, 15, SecurityRating.LOW);
     public static Facility mediumSecurityUnit = new Facility(FacilityList.MEDIUM_SECURITY_UNIT, 15, SecurityRating.MEDIUM);
     public static Facility highSecurityUnit = new Facility(FacilityList.HIGH_SECURITY_UNIT, 15, SecurityRating.HIGH);
@@ -20,7 +20,31 @@ public class client {
     public static Facility kitchen = new Facility(FacilityList.KITCHEN, 75, SecurityRating.MEDIUM);
     public static Prison prison = new Prison("Prison", lowSecurityUnit, mediumSecurityUnit, highSecurityUnit, yard, kitchen);
 
-    public static void main(String[] args) throws IOException {
+    public void execute() throws IOException {
+        loadInmates();
+        loadGUI();
+        startWinTimer();
+    }
+
+    private void startWinTimer() {
+        WinTimer winTimer = new WinTimer(winTimeLimit);
+        winTimer.start();
+    }
+
+    private void loadGUI() throws IOException {
+        // launch GUI
+        MainGui mainGui = new MainGui();
+
+
+        // Update inmate counts in each area by passing Maps in this order
+        //      [lowSecurityUnit, mediumSecurityUnit, highSecurityUnit, yard, kitchen]
+        mainGui.updateCounts(lowSecurityUnit.getInmateMap(),
+                mediumSecurityUnit.getInmateMap(),
+                highSecurityUnit.getInmateMap(),
+                yard.getInmateMap(),
+                kitchen.getInmateMap());
+    }
+    private void loadInmates() throws IOException {
         // Adding inmateLoadList to appropriate SecurityUnit based upon securityRating
         InmateLoader inLoader = new InmateLoader("resources/data/inmate-data.csv");
         List<Inmate> inmateLoadList = inLoader.load();
@@ -37,16 +61,5 @@ public class client {
                     break;
             }
         }
-
-        // launch GUI
-        MainGui mainGui = new MainGui();
-
-        // Update inmate counts in each area by passing Maps in this order
-        //      [lowSecurityUnit, mediumSecurityUnit, highSecurityUnit, yard, kitchen]
-        mainGui.updateCounts(lowSecurityUnit.getInmateMap(),
-                mediumSecurityUnit.getInmateMap(),
-                highSecurityUnit.getInmateMap(),
-                yard.getInmateMap(),
-                kitchen.getInmateMap());
     }
 }
