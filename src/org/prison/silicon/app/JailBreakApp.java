@@ -44,33 +44,41 @@ public class JailBreakApp {
                 mediumSecurityUnit.getInmateMap(),
                 highSecurityUnit.getInmateMap(),
                 yard.getInmateMap(),
-                kitchen.getInmateMap());
+                kitchen.getInmateMap(),
+                workArea.getInmateMap());
     }
+
     private void loadInmates() throws IOException {
-        // Adding inmateLoadList to random areas
+        // 40% chance to be in their home unit based upon security rating
+        // 20% chance to be in one of the other 3 areas
         Random ran = new Random();
         int ranLoc = 0;
         InmateLoader inLoader = new InmateLoader(prison);
         List<Inmate> inmateLoadList = inLoader.load();
         for (Inmate inmate : inmateLoadList) {
-            ranLoc = ran.nextInt(6);
+            ranLoc = ran.nextInt(5);
             switch (ranLoc) {
                 case 0:
-                    lowSecurityUnit.addInmate(inmate);
-                    break;
                 case 1:
-                    mediumSecurityUnit.addInmate(inmate);
+                    switch(inmate.getSecurityRating()) {
+                        case LOW:
+                            lowSecurityUnit.addInmate(inmate);
+                            break;
+                        case MEDIUM:
+                            mediumSecurityUnit.addInmate(inmate);
+                            break;
+                        case HIGH:
+                            highSecurityUnit.addInmate(inmate);
+                            break;
+                    }
                     break;
                 case 2:
-                    highSecurityUnit.addInmate(inmate);
-                    break;
-                case 3:
                     kitchen.addInmate(inmate);
                     break;
-                case 4:
+                case 3:
                     yard.addInmate(inmate);
                     break;
-                case 5:
+                case 4:
                     workArea.addInmate(inmate);
                     break;
             }

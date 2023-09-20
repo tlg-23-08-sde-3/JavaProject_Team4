@@ -68,13 +68,14 @@ public class MainGui {
     // Update all Panel counts
     public void updateCounts(Map<Integer, Inmate> lowSecurityMap, Map<Integer, Inmate> mediumSecurityMap,
                              Map<Integer, Inmate> highSecurityMap, Map<Integer, Inmate> yardMap,
-                             Map<Integer, Inmate> kitchenMap){
+                             Map<Integer, Inmate> kitchenMap, Map<Integer, Inmate> workAreaMap){
 
         lowSecurityUnitPanel.updateInmateList(lowSecurityMap);
         mediumSecurityUnitPanel.updateInmateList(mediumSecurityMap);
         highSecurityUnitPanel.updateInmateList(highSecurityMap);
         yardPanel.updateInmateList(yardMap);
         kitchenPanel.updateInmateList(kitchenMap);
+        workAreaPanel.updateInmateList(workAreaMap);
 
         // repaint the frame after updating all areas
         mainFrame.repaint();
