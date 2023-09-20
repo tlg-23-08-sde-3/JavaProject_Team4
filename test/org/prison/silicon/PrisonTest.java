@@ -12,16 +12,23 @@ import static org.junit.Assert.*;
 public class PrisonTest {
     Inmate in1, in2, in3, in4, in5;
     Facility kitchen = new Facility(FacilityList.KITCHEN, 15, SecurityRating.MEDIUM);
+    Facility yard = new Facility(FacilityList.YARD, 20, SecurityRating.MEDIUM);
+    Facility work = new Facility(FacilityList.WORK_AREA, 15, SecurityRating.LOW);
     Facility low = new Facility(FacilityList.LOW_SECURITY_UNIT, 5, SecurityRating.LOW);
+    Facility med = new Facility(FacilityList.LOW_SECURITY_UNIT, 5, SecurityRating.MEDIUM);
     Facility high = new Facility(FacilityList.HIGH_SECURITY_UNIT, 10, SecurityRating.HIGH);
 
     @Before
     public void setUp() throws Exception {
-        in1 = new LowSecurityInmate(1001, "Inmate1", true, SecurityRating.LOW);
-        in2 = new MediumSecurityInmate(1002, "Inmate2", false, SecurityRating.MEDIUM);
-        in3 = new HighSecurityInmate(1003, "Inmate3", false, SecurityRating.HIGH);
-        in4 = new HighSecurityInmate(1004, "Inmate4", true, SecurityRating.HIGH);
-        in5 = new MediumSecurityInmate(1005, "Inmate5", false, SecurityRating.MEDIUM);
+        Prison prison = new Prison("JailBreak", kitchen, yard, work, low, med, high);
+        in1 = new LowSecurityInmate(1001, "Inmate1", true, SecurityRating.LOW, prison);
+        in2 = new MediumSecurityInmate(1002, "Inmate2", false, SecurityRating.MEDIUM, prison);
+        in3 = new HighSecurityInmate(1003, "Inmate3", false, SecurityRating.HIGH, prison);
+        in4 = new HighSecurityInmate(1004, "Inmate4", true, SecurityRating.HIGH, prison);
+        in5 = new MediumSecurityInmate(1005, "Inmate5", false, SecurityRating.MEDIUM, prison);
+        kitchen.addInmate(in5, in2);
+        low.addInmate(in1);
+        high.addInmate(in3, in4);
     }
 
     @Test
@@ -41,9 +48,6 @@ public class PrisonTest {
     @Test
     public void getCount_correctInmateCount_whenPrisonHasMultipleFacilities() {
         Prison prison = new Prison("JailBreak", kitchen, low, high);
-        kitchen.addInmate(in1, in2);
-        low.addInmate(in5);
-        high.addInmate(in3, in4);
         assertEquals(5, prison.getCount());
     }
 
@@ -64,9 +68,6 @@ public class PrisonTest {
     @Test
     public void calculateRiskRating_validRatingReturned_whenPrisonHasMultipleFacilities() {
         Prison prison = new Prison("JailBreak", kitchen, low, high);
-        kitchen.addInmate(in5, in2);
-        low.addInmate(in1);
-        high.addInmate(in3, in4);
         kitchen.calculateRiskRating();
         low.calculateRiskRating();
         high.calculateRiskRating();
@@ -75,11 +76,32 @@ public class PrisonTest {
     }
 
     @Test
-    public void displayInmates_NotTrueTest_JustForVerification() {
+    public void displayInmates_allInmatesForPrisonDisplayed() {
         Prison prison = new Prison("JailBreak", kitchen, low, high);
-        kitchen.addInmate(in5, in2);
-        low.addInmate(in1);
-        high.addInmate(in3, in4);
         prison.displayInmates();
+    }
+
+    @Test
+    public void moveInmate_facilitySizesCorrect_afterInmateMove() {
+        Prison prison = new Prison("JailBreak", kitchen, low, high);
+        in2.setCurrentLocation(FacilityList.KITCHEN);
+        prison.moveInmate(in2, FacilityList.LOW_SECURITY_UNIT);
+        assertEquals(1, kitchen.currentInmates.size());
+        assertEquals(2, low.currentInmates.size());
+
+    }
+
+    @Test
+    public void moveInmate_returnTrue_whenInmateMoveSuccessful() {
+        Prison prison = new Prison("JailBreak", kitchen, low, high);
+        in2.setCurrentLocation(FacilityList.KITCHEN);
+        assertTrue(prison.moveInmate(in2, FacilityList.LOW_SECURITY_UNIT));
+    }
+
+    @Test
+    public void moveInmate_returnFalseAndPopUpDisplays_whenInmateMoveNotSuccessful() {
+        Prison prison = new Prison("JailBreak", kitchen, low, high);
+        assertFalse(prison.moveInmate(in1, FacilityList.LOW_SECURITY_UNIT));
+        // popup displays. Will need to research how to test
     }
 }

@@ -11,6 +11,7 @@ public class Facility {
     private final SecurityRating securityRating;
     Map<Integer, Inmate> currentInmates;
     int riskRating;
+    Prison prison;
 
     public Facility(FacilityList name, int maxCapacity, SecurityRating securityRating) {
         this.name = name;
@@ -28,34 +29,34 @@ public class Facility {
     }
 
     public void removeInmate(int id, int... ids) {
-        currentInmates.remove(id);
-        for (int i : ids) {
-            currentInmates.remove(i);
+        if (!currentInmates.isEmpty()) {
+            currentInmates.remove(id);
+            for (int i : ids) {
+                currentInmates.remove(i);
+            }
         }
     }
 
     public  void calculateRiskRating() {
         // Calculate avgHappiness and ratingAdjHappiness for currentInmateMap
-        double avgHappiness = currentInmates.values().stream()
-                .mapToInt(Inmate::getHappiness)
-                .average().getAsDouble();
-        System.out.println("AvgHappy: " + avgHappiness);
+        double avgHappiness = 100.0;
+        if (!currentInmates.isEmpty()) {
+            avgHappiness = currentInmates.values().stream()
+                    .mapToInt(Inmate::getHappiness)
+                    .average().getAsDouble();
+        }
         int ratingAdjHappiness = (int) (100 - avgHappiness) / 2;
-        System.out.println("adjHappy: " + ratingAdjHappiness);
         // Facility being at max capacity will increase riskRating by 50
         double ratingAdjCapacity = ((double) currentInmates.size() / getMaxCapacity()) * 50;
-        System.out.println("adjCap: " + ratingAdjCapacity);
         // Add a certain amount for each gangLeader
         int ratingAdjGang =
                 (int) currentInmates.values().stream().filter(Inmate::isGangLeader).count() * 25;
-        System.out.println("adjGang: " + ratingAdjGang);
         this.riskRating = ratingAdjHappiness + (int) ratingAdjCapacity + ratingAdjGang;
     }
 
     public void displayCurrentInmates() {
         for (Inmate inmate : getInmateMap().values()) {
-            System.out.printf("ID: %d, Name: %s, Security Rating: %s, Gang Leader: %s, Happiness: int\n",
-                    inmate.getIdNumber(), inmate.getName(), inmate.getSecurityRating().getDisplayName(), inmate.isGangLeader());
+            System.out.printf(inmate.toString());
         }
     }
 

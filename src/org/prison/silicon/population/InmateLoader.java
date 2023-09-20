@@ -29,13 +29,13 @@ public class InmateLoader {
 
         switch (rating) {
             case LOW:
-                result.add(new LowSecurityInmate(id, name, gangLeader, rating));
+                //result.add(new LowSecurityInmate(id, name, gangLeader, rating));
                 break;
             case MEDIUM:
-                result.add(new MediumSecurityInmate(id, name, gangLeader, rating));
+                //result.add(new MediumSecurityInmate(id, name, gangLeader, rating));
                 break;
             case HIGH:
-                result.add(new HighSecurityInmate(id, name, gangLeader, rating));
+                //result.add(new HighSecurityInmate(id, name, gangLeader, rating));
                 break;
         }
         });

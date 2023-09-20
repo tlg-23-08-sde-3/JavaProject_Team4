@@ -14,12 +14,13 @@ import static org.junit.Assert.*;
 public class FacilityTest {
     Map<Integer, Inmate> testMap;
     Inmate in1, in2, in3;
+    Prison prison;
 
     @Before
     public void setUp() throws Exception {
-        in1 = new LowSecurityInmate(1001, "Inmate1", false, SecurityRating.LOW);
-        in2 = new MediumSecurityInmate(1002, "Inmate2", false, SecurityRating.MEDIUM);
-        in3 = new HighSecurityInmate(1003, "Inmate3", true, SecurityRating.HIGH);
+        in1 = new LowSecurityInmate(1001, "Inmate1", false, SecurityRating.LOW, prison);
+        in2 = new MediumSecurityInmate(1002, "Inmate2", false, SecurityRating.MEDIUM, prison);
+        in3 = new HighSecurityInmate(1003, "Inmate3", true, SecurityRating.HIGH, prison);
     }
 
     @Test
@@ -39,6 +40,7 @@ public class FacilityTest {
     @Test
     public void addInmate_inmateAddedToCurrentInmatesMap_whenSingleInmatePassed() {
         Facility kitchen = new Facility(FacilityList.KITCHEN, 15, SecurityRating.LOW);
+        prison = new Prison("JailBreak", kitchen);
         kitchen.addInmate(in1);
         assertEquals(1, kitchen.getInmateMap().size());
         assertArrayEquals(new Integer[]{1001}, kitchen.getInmatesIds());
@@ -47,6 +49,7 @@ public class FacilityTest {
     @Test
     public void addInmate_inmatesAddedToCurrentInmatesMap_whenMultipleInmatesPassed() {
         Facility kitchen = new Facility(FacilityList.KITCHEN, 15, SecurityRating.LOW);
+        prison = new Prison("JailBreak", kitchen);
         kitchen.addInmate(in1, in2, in3);
         assertEquals(3, kitchen.getInmateMap().size());
         assertArrayEquals(new Integer[]{1001, 1002, 1003}, kitchen.getInmatesIds());
@@ -81,7 +84,7 @@ public class FacilityTest {
     }
 
     @Test
-    public void displayCurrentInmates_NotTrueTest_JustForVerification() {
+    public void displayCurrentInmates_currentInmatesDisplayProperly() {
         Facility kitchen = new Facility(FacilityList.KITCHEN, 15, SecurityRating.LOW);
         kitchen.addInmate(in1, in2, in3);
         kitchen.displayCurrentInmates();

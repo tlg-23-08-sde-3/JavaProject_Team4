@@ -2,13 +2,22 @@ package org.prison.silicon.population;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.prison.silicon.Facility;
 import org.prison.silicon.FacilityList;
+import org.prison.silicon.Prison;
 import org.prison.silicon.SecurityRating;
 
 import static org.junit.Assert.*;
 
 public class HighSecurityInmateTest {
     HighSecurityInmate testInmate;
+    Facility kitchen = new Facility(FacilityList.KITCHEN, 15, SecurityRating.MEDIUM);
+    Facility yard = new Facility(FacilityList.YARD, 20, SecurityRating.MEDIUM);
+    Facility work = new Facility(FacilityList.WORK_AREA, 15, SecurityRating.LOW);
+    Facility low = new Facility(FacilityList.LOW_SECURITY_UNIT, 5, SecurityRating.LOW);
+    Facility med = new Facility(FacilityList.LOW_SECURITY_UNIT, 5, SecurityRating.MEDIUM);
+    Facility high = new Facility(FacilityList.HIGH_SECURITY_UNIT, 10, SecurityRating.HIGH);
+    Prison prison = new Prison("JailBreak", kitchen, yard, work, low, med, high);
 
     @Before
     public void setUp() {
@@ -16,7 +25,7 @@ public class HighSecurityInmateTest {
                 123456,
                 "Johnny",
                 true,
-                SecurityRating.HIGH);
+                SecurityRating.HIGH, prison);
     }
 
     @Test
