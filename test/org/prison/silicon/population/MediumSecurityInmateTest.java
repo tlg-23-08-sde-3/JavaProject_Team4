@@ -21,7 +21,7 @@ public class MediumSecurityInmateTest {
         yard = new Facility(FacilityList.YARD, 20, SecurityRating.MEDIUM);
         work = new Facility(FacilityList.WORK_AREA, 15, SecurityRating.LOW);
         low = new Facility(FacilityList.LOW_SECURITY_UNIT, 5, SecurityRating.LOW);
-        med = new Facility(FacilityList.LOW_SECURITY_UNIT, 5, SecurityRating.MEDIUM);
+        med = new Facility(FacilityList.MEDIUM_SECURITY_UNIT, 5, SecurityRating.MEDIUM);
         high = new Facility(FacilityList.HIGH_SECURITY_UNIT, 10, SecurityRating.HIGH);
         prison = new Prison("JailBreak", kitchen, yard, work, low, med, high);
         in1 = new MediumSecurityInmate(1001, "Inmate1", true, SecurityRating.MEDIUM, prison);
