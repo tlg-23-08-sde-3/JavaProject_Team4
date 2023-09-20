@@ -1,7 +1,7 @@
 package org.prison.silicon.gui;
 
-import org.prison.silicon.FacilityList;
-import org.prison.silicon.Prison;
+import org.prison.silicon.facility.FacilityList;
+import org.prison.silicon.facility.Prison;
 
 import javax.swing.*;
 import java.awt.*;

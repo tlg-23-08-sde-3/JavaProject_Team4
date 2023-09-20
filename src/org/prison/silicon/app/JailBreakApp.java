@@ -1,8 +1,8 @@
 package org.prison.silicon.app;
 
-import org.prison.silicon.Facility;
-import org.prison.silicon.FacilityList;
-import org.prison.silicon.Prison;
+import org.prison.silicon.facility.Facility;
+import org.prison.silicon.facility.FacilityList;
+import org.prison.silicon.facility.Prison;
 import org.prison.silicon.SecurityRating;
 import org.prison.silicon.gui.MainGui;
 import org.prison.silicon.population.Inmate;
@@ -26,7 +26,6 @@ public class JailBreakApp {
         loadInmates();
         loadGUI();
         startWinTimer();
-        prison.displayInmates();
     }
 
     private void startWinTimer() {

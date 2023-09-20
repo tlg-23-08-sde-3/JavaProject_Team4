@@ -1,6 +1,6 @@
 package org.prison.silicon.population;
 
-import org.prison.silicon.Prison;
+import org.prison.silicon.facility.Prison;
 import org.prison.silicon.SecurityRating;
 
 import java.io.IOException;
@@ -25,7 +25,6 @@ public class InmateLoader {
         String[] tokens = line.split(",");
 
         int id = Integer.parseInt(tokens[0]);
-        //int id = parsedId.intValue();
         String name = tokens[1];
         boolean gangLeader = Boolean.parseBoolean(tokens[2]);
         SecurityRating rating = SecurityRating.valueOf(tokens[3]);

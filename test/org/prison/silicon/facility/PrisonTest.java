@@ -1,7 +1,11 @@
-package org.prison.silicon;
+package org.prison.silicon.facility;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.prison.silicon.SecurityRating;
+import org.prison.silicon.facility.Facility;
+import org.prison.silicon.facility.FacilityList;
+import org.prison.silicon.facility.Prison;
 import org.prison.silicon.population.HighSecurityInmate;
 import org.prison.silicon.population.Inmate;
 import org.prison.silicon.population.LowSecurityInmate;

@@ -1,4 +1,4 @@
-package org.prison.silicon;
+package org.prison.silicon.facility;
 
 public enum FacilityList {
     LOW_SECURITY_UNIT("Low Security Unit"),

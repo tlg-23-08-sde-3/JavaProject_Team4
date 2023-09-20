@@ -2,9 +2,9 @@ package org.prison.silicon.population;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.prison.silicon.Facility;
-import org.prison.silicon.FacilityList;
-import org.prison.silicon.Prison;
+import org.prison.silicon.facility.Facility;
+import org.prison.silicon.facility.FacilityList;
+import org.prison.silicon.facility.Prison;
 import org.prison.silicon.SecurityRating;
 
 import static org.junit.Assert.*;
