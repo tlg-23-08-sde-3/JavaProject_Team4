@@ -23,9 +23,8 @@ public class JailBreakApp {
 
     public void execute() throws IOException {
         loadInmates();
-        //loadGUI();
-        //startWinTimer();
-        prison.displayInmates();
+        loadGUI();
+        startWinTimer();
     }
 
     private void startWinTimer() {

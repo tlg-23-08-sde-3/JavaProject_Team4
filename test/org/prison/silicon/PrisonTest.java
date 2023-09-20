@@ -104,4 +104,17 @@ public class PrisonTest {
         assertFalse(prison.moveInmate(in1, FacilityList.LOW_SECURITY_UNIT));
         // popup displays. Will need to research how to test
     }
+
+    @Test
+    public void findInmateById_returnsCorrectInmate_whenValidInmateIdPassed() {
+        Prison prison = new Prison("JailBreak", kitchen, low, high);
+        assertEquals(in4, prison.locateInmateByID(1004));
+        assertEquals("Inmate4", prison.locateInmateByID(1004).getName());
+    }
+
+    @Test
+    public void findInmateById_returnsPopup_whenIdNotFound() {
+        Prison prison = new Prison("JailBreak", kitchen, low, high);
+        prison.locateInmateByID(1010);
+    }
 }
