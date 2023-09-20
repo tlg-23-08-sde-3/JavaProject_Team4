@@ -23,8 +23,8 @@ public class JailBreakApp {
 
     public void execute() throws IOException {
         loadInmates();
-        //loadGUI();
-        //startWinTimer();
+        loadGUI();
+        // startWinTimer();
         prison.displayInmates();
     }
 
@@ -35,7 +35,7 @@ public class JailBreakApp {
 
     private void loadGUI() throws IOException {
         // launch GUI
-        MainGui mainGui = new MainGui();
+        MainGui mainGui = new MainGui(prison);
 
 
         // Update inmate counts in each area by passing Maps in this order

@@ -12,67 +12,80 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class WorkAreaPanel {
+    // Sub-Panels for the workAreaPanel
     private final JPanel workAreaPanel;
-    private final JLabel title;
+    // private final JLabel title;
+    private final JPanel inmateMainPanel;
+    private final JPanel titlePanel;
+    // Inmate TreeMap
     private final Map<Integer, Inmate> currentInmates = new TreeMap<>();
-
     // Normal inmate image
-    BufferedImage inmatePicture1 = ImageIO.read(new File("resources/images/prisoner.png"));
-    Image normalInmateIcon = inmatePicture1.getScaledInstance(25, 50, Image.SCALE_DEFAULT);
-
+    private final BufferedImage inmatePicture1 = ImageIO.read(new File("resources/images/prisoner.png"));
+    private final Image normalInmateIcon = inmatePicture1.getScaledInstance(25, 50, Image.SCALE_DEFAULT);
     // Gang leader inmate icon
-    BufferedImage inmatePicture2 = ImageIO.read(new File("resources/images/gangleader.png"));
-    Image gangLeaderInmateIcon = inmatePicture2.getScaledInstance(25, 50, Image.SCALE_DEFAULT);
+    private final BufferedImage inmatePicture2 = ImageIO.read(new File("resources/images/gangleader.png"));
+    private final Image gangLeaderInmateIcon = inmatePicture2.getScaledInstance(25, 50, Image.SCALE_DEFAULT);
 
 
+    // Constructor - throws IOException since it loading an image file with ImageIO.read
     public WorkAreaPanel() throws IOException {
+        // workAreaPanel & workAreaPanel Title
         workAreaPanel = new JPanel();
-        workAreaPanel.setLayout(null);
-        title = new JLabel();
+        titlePanel = new JPanel();
+        inmateMainPanel = new JPanel();
+        workAreaPanelSettings();
+        paintInmates();
+        addPanels();
+    }
+
+    // workAreaPanelSettings method
+    private void workAreaPanelSettings(){
+        workAreaPanel.setLayout(new BoxLayout(workAreaPanel, BoxLayout.Y_AXIS));
+        JLabel title = new JLabel();
+        titlePanel.add(title);
+        title.setBackground(Color.lightGray);
+        titlePanel.setMaximumSize(new Dimension(320, 40));
         title.setText("Work Area");
         title.setFont(title.getFont().deriveFont(Font.BOLD));
-        title.setBounds(120, 5, 150, 25);
-        workAreaPanel.add(title);
         workAreaPanel.setBorder(BorderFactory.createLineBorder(Color.black, 5, false));
-        //mediumSecurityUnitPanel.setBounds(200, 10, 200, 200);
         workAreaPanel.setBackground(Color.lightGray);
     }
 
+    // paints the inmate clipart for each inmate in currentInmates for this location
     private void paintInmates() {
-        // Start x and y points
-        int xAxis = 20;
-        int yAxis = 40;
-
         try{
             for(Map.Entry<Integer, Inmate> inmate : currentInmates.entrySet()) {
-                // TODO: create JPanel for each inmate with NORTH = image & South = inmate ID
                 JPanel inmateIconPanel = new JPanel();
-                inmateIconPanel.setBackground(Color.lightGray);
-                inmateIconPanel.setLayout(null);
-                inmateIconPanel.setBounds(xAxis, yAxis, 40, 80);
-                JLabel testlabel = new JLabel(inmate.getKey().toString());
-                testlabel.setBounds(3, 60, 35, 20);
+                inmateIconPanel.setLayout(new BoxLayout(inmateIconPanel, BoxLayout.Y_AXIS));
+                JLabel inmateIdLabel = new JLabel(inmate.getKey().toString());
                 if(!inmate.getValue().isGangLeader()){
                     inmateIconPanel.add (new JLabel(new ImageIcon((normalInmateIcon)))).setBounds(3, 1, 35, 65);
                 } else {
                     inmateIconPanel.add(new JLabel(new ImageIcon((gangLeaderInmateIcon)))).setBounds(3, 1, 35, 65);
                 }
-                inmateIconPanel.add(testlabel);
-                workAreaPanel.add(inmateIconPanel);
-                if( xAxis <= 250){
-                    xAxis += 41;
-                } else {
-                    xAxis = 20;
-                    yAxis += 85;
-                }
+                inmateIconPanel.add(inmateIdLabel);
+                inmateMainPanel.add(inmateIconPanel);
             }
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
+        inmateMainPanel.revalidate();
+        inmateMainPanel.repaint();
     }
 
+    private void addPanels(){
+        workAreaPanel.add(titlePanel);
+        workAreaPanel.add(inmateMainPanel);
+    }
+
+    // Returns the workAreaPanel
     public JPanel getWorkAreaPanel() {
+        workAreaPanel.repaint();
         return workAreaPanel;
+    }
+
+    public void getInmateMainPanel(){
+        paintInmates();
     }
 
     public void updateInmateList(Map<Integer, Inmate> inmates) {
