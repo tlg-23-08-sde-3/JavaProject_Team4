@@ -21,7 +21,7 @@ public class InmateLoaderTest {
 
     @Test
     public void load_shouldReturnPopulatedList() throws IOException {
-        InmateLoader inLoader = new InmateLoader("resources/data/inmate-data.csv", prison);
+        InmateLoader inLoader = new InmateLoader(prison);
         List<Inmate> inmates = inLoader.load();
         assertEquals(50, inmates.size());
 

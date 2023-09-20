@@ -10,11 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class InmateLoader {
-    private Path dataFilePath;
+    private Path dataFilePath = Path.of("resources/data/inmate-data.csv");
     private Prison prison;
 
-    public InmateLoader(String dataFilePath, Prison prison) {
-        this.dataFilePath = Path.of(dataFilePath);
+    public InmateLoader(Prison prison) {
+        this.dataFilePath = dataFilePath;
         this.prison = prison;
     }
 
