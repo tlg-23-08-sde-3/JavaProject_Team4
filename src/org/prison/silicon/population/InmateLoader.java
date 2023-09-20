@@ -1,5 +1,6 @@
 package org.prison.silicon.population;
 
+import org.prison.silicon.Prison;
 import org.prison.silicon.SecurityRating;
 
 import java.io.IOException;
@@ -10,9 +11,11 @@ import java.util.List;
 
 public class InmateLoader {
     private Path dataFilePath;
+    private Prison prison;
 
-    public InmateLoader(String dataFilePath) {
+    public InmateLoader(String dataFilePath, Prison prison) {
         this.dataFilePath = Path.of(dataFilePath);
+        this.prison = prison;
     }
 
     public List<Inmate> load() throws IOException {
@@ -29,13 +32,13 @@ public class InmateLoader {
 
         switch (rating) {
             case LOW:
-                result.add(new LowSecurityInmate(id, name, gangLeader, rating));
+                result.add(new LowSecurityInmate(id, name, gangLeader, rating, prison));
                 break;
             case MEDIUM:
-                result.add(new MediumSecurityInmate(id, name, gangLeader, rating));
+                result.add(new MediumSecurityInmate(id, name, gangLeader, rating, prison));
                 break;
             case HIGH:
-                result.add(new HighSecurityInmate(id, name, gangLeader, rating));
+                result.add(new HighSecurityInmate(id, name, gangLeader, rating, prison));
                 break;
         }
         });

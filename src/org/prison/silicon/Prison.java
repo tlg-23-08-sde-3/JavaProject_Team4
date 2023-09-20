@@ -2,16 +2,19 @@ package org.prison.silicon;
 
 import org.prison.silicon.population.Inmate;
 
+import javax.swing.*;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Prison {
-    private final String name;
-    private final Map<Facility, SecurityRating> prisonMap;
-    private boolean lockDown;
+    private String name;
+    public Map<Facility, SecurityRating> prisonMap;
     private int funds;
     private int totalDays;
     private int riskRating;
+
+    public Prison() {
+    }
 
     public Prison(String name, Facility facility, Facility... facilities) {
         this.name = name;
@@ -23,10 +26,6 @@ public class Prison {
     }
 
     // Business methods
-    public void lockdownSwitch() {
-        this.lockDown = !lockDown;
-    }
-
     public int getCount() {
         int count = 0;
         for (Facility facility : prisonMap.keySet()) {
@@ -67,14 +66,6 @@ public class Prison {
         return name;
     }
 
-    public boolean isLockDown() {
-        return lockDown;
-    }
-
-    public void setLockDown(boolean lockDown) {
-        this.lockDown = lockDown;
-    }
-
     public int getFunds() {
         return funds;
     }
@@ -89,5 +80,51 @@ public class Prison {
 
     public Map<Facility, SecurityRating> getPrisonMap() {
         return prisonMap;
+    }
+
+    private Facility parseFacility(FacilityList listName) {
+        Facility result = null;
+        for (Facility facility : getPrisonMap().keySet()) {
+            if (facility.getName().equals(listName)) {
+                result = facility;
+            }
+        }
+        return result;
+    }
+
+    public boolean moveInmate(Inmate inmate, FacilityList newLocation){
+        boolean successfulMove = false;
+        try{
+            if(!inmate.getCurrentLocation().equals(newLocation)){
+        Facility currentFacility = parseFacility(inmate.getCurrentLocation());
+        Facility newFacility = parseFacility(newLocation);
+        // Move the inmate to a new location
+        currentFacility.removeInmate(inmate.getIdNumber());
+        // move inmate to the new location and update currentLocation
+        newFacility.addInmate(inmate);
+        System.out.printf("Inmate %s has been moved to %s\n", inmate.getIdNumber(), inmate.getCurrentLocation());
+        successfulMove = true;
+        currentFacility.calculateRiskRating();
+        newFacility.calculateRiskRating();
+        calculateRiskRating();
+            } else {
+                throw new IllegalArgumentException("Can't move an inmate to a location they are already in.");
+            }
+        } catch (IllegalArgumentException e) {
+            InvalidMove(inmate, newLocation);
+        }
+        return successfulMove;
+    }
+
+    // Invalid move method that generates a pop-up window
+    private void InvalidMove(Inmate inmate, FacilityList requestedLocation){
+        String message = "Inmate " + inmate.getIdNumber() + " is already in the " + inmate.getCurrentLocation().getDisplayName() +
+                "\narea. Please select a different location.";
+        String title = "Invalid Move To " + requestedLocation;
+
+        JOptionPane.showMessageDialog(null,
+                message,
+                title,
+                JOptionPane.WARNING_MESSAGE);
     }
 }

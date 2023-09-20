@@ -1,7 +1,14 @@
 package org.prison.silicon.population;
 
+import org.prison.silicon.Facility;
 import org.prison.silicon.FacilityList;
+import org.prison.silicon.Prison;
 import org.prison.silicon.SecurityRating;
+
+import javax.swing.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 public abstract class Inmate implements Comparable<Inmate> {
     private int idNumber;
@@ -10,18 +17,26 @@ public abstract class Inmate implements Comparable<Inmate> {
     private SecurityRating securityRating;
     private int happiness;
     private FacilityList currentLocation;
+    private Prison prison;
 
-    public Inmate(int idNumber, String name, boolean gangLeader, SecurityRating securityRating) {
+    public Inmate(int idNumber, String name, boolean gangLeader, SecurityRating securityRating, Prison prison) {
         setIdNumber(idNumber);
         setName(name);
         setGangLeader(gangLeader);
         setSecurityRating(securityRating);
+        this.prison = prison;
     }
 
     // Business Abstract Methods - delegated to the subclasses
     public abstract void work();
 
-    public abstract void move(FacilityList location);
+    public void move(FacilityList location) {
+        // Attempt to move the inmate to the passed location
+        boolean successfulMove = prison.moveInmate(this, location);
+        if (successfulMove) {
+            this.setCurrentLocation(location);
+        }
+    };
 
     public abstract void eat();
 
@@ -80,6 +95,10 @@ public abstract class Inmate implements Comparable<Inmate> {
 
     public void setCurrentLocation(FacilityList currentLocation) {
         this.currentLocation = currentLocation;
+    }
+
+    public Prison getPrison() {
+        return prison;
     }
 
     @Override
