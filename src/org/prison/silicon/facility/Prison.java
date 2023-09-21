@@ -1,9 +1,7 @@
 package org.prison.silicon.facility;
 
 import org.prison.silicon.SecurityRating;
-import org.prison.silicon.gui.MainGui;
 import org.prison.silicon.population.Inmate;
-import org.w3c.dom.ls.LSOutput;
 
 import javax.swing.*;
 import java.util.HashMap;

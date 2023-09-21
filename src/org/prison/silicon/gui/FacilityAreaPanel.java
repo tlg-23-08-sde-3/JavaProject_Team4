@@ -39,7 +39,7 @@ public class FacilityAreaPanel {
         facilityUnitPanel = new JPanel();
         titlePanel = new JPanel();
         inmateMainPanel = new JPanel();
-        title = new JLabel(name);
+        title = new JLabel(name + ", Max Inmates: 30");
         facilityUnitSetup();
         paintInmates();
         addPanels();
