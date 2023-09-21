@@ -3,11 +3,11 @@ package org.prison.silicon.population;
 import org.junit.Before;
 import org.junit.Test;
 import org.prison.silicon.facility.Facility;
-import org.prison.silicon.facility.FacilityList;
 import org.prison.silicon.facility.Prison;
 import org.prison.silicon.SecurityRating;
 
 import static org.junit.Assert.*;
+import static org.prison.silicon.facility.Facility.*;
 
 public class MediumSecurityInmateTest {
     Inmate in1;
@@ -17,13 +17,7 @@ public class MediumSecurityInmateTest {
 
     @Before
     public void setUp() {
-        kitchen = new Facility(FacilityList.KITCHEN, 15, SecurityRating.MEDIUM);
-        yard = new Facility(FacilityList.YARD, 20, SecurityRating.MEDIUM);
-        work = new Facility(FacilityList.WORK_AREA, 15, SecurityRating.LOW);
-        low = new Facility(FacilityList.LOW_SECURITY_UNIT, 5, SecurityRating.LOW);
-        med = new Facility(FacilityList.MEDIUM_SECURITY_UNIT, 5, SecurityRating.MEDIUM);
-        high = new Facility(FacilityList.HIGH_SECURITY_UNIT, 10, SecurityRating.HIGH);
-        prison = new Prison("JailBreak", kitchen, yard, work, low, med, high);
+        prison = new Prison("JailBreak", LOW_SECURITY_UNIT, MEDIUM_SECURITY_UNIT, HIGH_SECURITY_UNIT, YARD, KITCHEN, WORK_AREA);
         in1 = new MediumSecurityInmate(1001, "Inmate1", true, SecurityRating.MEDIUM, prison);
     }
 
@@ -38,19 +32,19 @@ public class MediumSecurityInmateTest {
     @Test
     public void work_shouldReturnACurrentLocationOfWorkArea_whenWorkIsCalledOnAnInmate() {
         in1.work();
-        assertEquals(in1.getCurrentLocation(), FacilityList.WORK_AREA);
+        assertEquals(in1.getCurrentLocation(), WORK_AREA);
     }
 
     @Test
     public void move_shouldReturnYardAsTheCurrentLocation_whenYardIsPassedToMove() {
-        in1.move(FacilityList.YARD);
-        assertEquals(FacilityList.YARD, in1.getCurrentLocation());
+        in1.move(YARD);
+        assertEquals(YARD, in1.getCurrentLocation());
     }
 
     @Test
     public void eat_shouldReturnACurrentLocationOfKitchen_whenEatIsCalledOnAnInmate() {
         in1.eat();
-        assertEquals(FacilityList.KITCHEN, in1.getCurrentLocation());
+        assertEquals(KITCHEN, in1.getCurrentLocation());
     }
 
     @Test
@@ -59,6 +53,11 @@ public class MediumSecurityInmateTest {
         in1.work();
         // call sleep to move the inmate to the original unit
         in1.sleep();
-        assertEquals(FacilityList.MEDIUM_SECURITY_UNIT, in1.getCurrentLocation());
+        assertEquals(MEDIUM_SECURITY_UNIT, in1.getCurrentLocation());
+    }
+
+    @Test
+    public void setHappiness_shouldSetAs50_whenInmateInstantiated() {
+        assertEquals(50, in1.getHappiness());
     }
 }

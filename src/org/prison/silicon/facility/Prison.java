@@ -56,7 +56,7 @@ public class Prison {
 
     public void displayInmates() {
         for (Facility facility : getPrisonMap().keySet()) {
-            System.out.println(facility.getName().getDisplayName());
+            System.out.println(facility.getName());
             System.out.println("===========================================================");
             for (Inmate inmate : facility.getInmateMap().values()) {
                 System.out.print(inmate);
@@ -65,10 +65,10 @@ public class Prison {
         }
     }
 
-    private Facility parseFacility(FacilityList listName) {
+    private Facility parseFacility(Facility listName) {
         Facility result = null;
         for (Facility facility : getPrisonMap().keySet()) {
-            if (facility.getName().equals(listName)) {
+            if (facility.equals(listName)) {
                 result = facility;
             }
         }
@@ -78,14 +78,14 @@ public class Prison {
     private Facility parseFacility(String displayName) {
         Facility result = null;
         for (Facility facility : getPrisonMap().keySet()) {
-            if (facility.getName().getDisplayName().equals(displayName)) {
+            if (facility.getName().equals(displayName)) {
                 result = facility;
             }
         }
         return result;
     }
 
-    public boolean moveInmate(Inmate inmate, FacilityList newLocation) {
+    public boolean moveInmate(Inmate inmate, Facility newLocation) {
         boolean successfulMove = false;
         try {
             if (!inmate.getCurrentLocation().equals(newLocation)) {
@@ -95,7 +95,7 @@ public class Prison {
                 currentFacility.removeInmate(inmate.getIdNumber());
                 // move inmate to the new location and update currentLocation
                 newFacility.addInmate(inmate);
-                System.out.printf("Inmate %s has been moved to %s\n", inmate.getIdNumber(), newFacility.getName().getDisplayName());
+                System.out.printf("Inmate %s has been moved to %s\n", inmate.getIdNumber(), newFacility.getName());
                 successfulMove = true;
                 currentFacility.calculateRiskRating();
                 newFacility.calculateRiskRating();
@@ -105,8 +105,8 @@ public class Prison {
             }
         } catch (IllegalArgumentException e) {
             String message = "Inmate " + inmate.getIdNumber() + " is already in the "
-                    + inmate.getCurrentLocation().getDisplayName() + "\narea. Please select a different location.";
-            String title = "Invalid Move To " + newLocation.getDisplayName();
+                    + inmate.getCurrentLocation().getName() + "\narea. Please select a different location.";
+            String title = "Invalid Move To " + newLocation.getName();
             InvalidChoice(title, message);
         }
 

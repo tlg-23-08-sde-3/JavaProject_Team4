@@ -1,13 +1,10 @@
 package org.prison.silicon.gui;
 
 import org.prison.silicon.facility.Facility;
-import org.prison.silicon.facility.FacilityList;
 import org.prison.silicon.facility.Prison;
-import org.prison.silicon.population.LowSecurityInmate;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Map;
 
 public class ScorePanel {
     private final JPanel scorePanel;

@@ -1,23 +1,25 @@
 package org.prison.silicon.population;
 
-import org.prison.silicon.facility.FacilityList;
+import org.prison.silicon.facility.Facility;
 import org.prison.silicon.facility.Prison;
 import org.prison.silicon.SecurityRating;
 
+import static org.prison.silicon.facility.Facility.*;
+
 public class HighSecurityInmate extends Inmate {
-    private FacilityList currentLocation;
+    private Facility currentLocation;
     private Prison prison;
 
     public HighSecurityInmate(int idNumber, String name, boolean gangLeader, SecurityRating securityRating, Prison prison) {
         super(idNumber, name, gangLeader, securityRating, prison);
-        setCurrentLocation(FacilityList.HIGH_SECURITY_UNIT);
+        setCurrentLocation(HIGH_SECURITY_UNIT);
         setHappiness(30);
     }
 
     @Override
     public void work() {
         // move to workshop
-        FacilityList location = FacilityList.WORK_AREA;
+        Facility location = WORK_AREA;
         boolean successfulMove = this.getPrison().moveInmate(this, location);
         if (successfulMove) {
             setHappiness(getHappiness() - 10);
@@ -28,7 +30,7 @@ public class HighSecurityInmate extends Inmate {
     @Override
     public void eat() {
         // move inmates from their current location to the kitchen
-        FacilityList location = FacilityList.KITCHEN;
+        Facility location = KITCHEN;
         boolean successfulMove = this.getPrison().moveInmate(this, location);
         if (successfulMove) {
             setHappiness(getHappiness() + 5);
@@ -39,7 +41,7 @@ public class HighSecurityInmate extends Inmate {
     @Override
     public void sleep() {
         // move inmates from their current location to the unit for sleep
-        FacilityList location = FacilityList.HIGH_SECURITY_UNIT;
+        Facility location = HIGH_SECURITY_UNIT;
         boolean successfulMove = this.getPrison().moveInmate(this, location);
         if (successfulMove) {
             setHappiness(getHappiness() + 5);
