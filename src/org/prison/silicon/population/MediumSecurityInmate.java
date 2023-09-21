@@ -26,17 +26,6 @@ public class MediumSecurityInmate extends Inmate {
     }
 
     @Override
-    public void eat() {
-        // move inmates from their current location to the kitchen
-        Facility location = KITCHEN;
-        boolean successfulMove = this.getPrison().moveInmate(this, location);
-        if (successfulMove) {
-            setHappiness(getHappiness() + 5);
-            this.setCurrentLocation(location);
-        }
-    }
-
-    @Override
     public void sleep() {
         // move inmates from their current location to the unit for sleep
         // by default moved to the medium security unit since they are a medium security inmate
