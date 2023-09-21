@@ -30,8 +30,8 @@ public class UserInputPanel {
             "HIGH_SECURITY_UNIT", "KITCHEN", "YARD", "WORK_AREA"};
 
 
-    public UserInputPanel(Prison prison, ScorePanel scorePanel, LowSecurityUnitPanel lowSecurityUnitpanel, MediumSecurityUnitPanel mediumSecurityUnitPanel,
-                          HighSecurityUnitPanel highSecurityUnitPanel, YardPanel yardPanel, KitchenPanel kitchenPanel, WorkAreaPanel workAreaPanel) {
+    public UserInputPanel(Prison prison, ScorePanel scorePanel, FacilityAreaPanel lowSecurityUnitpanel, FacilityAreaPanel mediumSecurityUnitPanel,
+                          FacilityAreaPanel highSecurityUnitPanel, FacilityAreaPanel yardPanel, FacilityAreaPanel kitchenPanel, FacilityAreaPanel workAreaPanel) {
 
         this.scorePanel = scorePanel;
         // Main panel
