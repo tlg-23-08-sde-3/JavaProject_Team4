@@ -38,7 +38,7 @@ public class Facility {
         }
     }
 
-    public  void calculateRiskRating() {
+    public void calculateRiskRating() {
         // Calculate avgHappiness and ratingAdjHappiness for currentInmateMap
         double avgHappiness = 100.0;
         if (!currentInmates.isEmpty()) {
@@ -74,7 +74,7 @@ public class Facility {
         return securityRating;
     }
 
-    public  int getCount() {
+    public int getCount() {
         return currentInmates.size();
     }
 
