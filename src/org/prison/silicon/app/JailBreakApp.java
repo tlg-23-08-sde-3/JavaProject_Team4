@@ -16,6 +16,7 @@ public class JailBreakApp {
 
     public void execute() throws IOException {
         loadInmates();
+
         updateInitalRiskRating();
         loadGUI();
         startWinTimer();

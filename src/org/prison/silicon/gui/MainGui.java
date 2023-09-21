@@ -33,7 +33,7 @@ public class MainGui {
         kitchenPanel = new KitchenPanel(kitchen);
         workAreaPanel = new WorkAreaPanel(workArea);
         scorePanel = new ScorePanel(prison, lowSecurityUnit, mediumSecurityUnit, highSecurityUnit, yard, kitchen, workArea);
-        userInputPanel = new UserInputPanel(prison, lowSecurityUnitPanel, mediumSecurityUnitPanel, highSecurityUnitPanel, yardPanel, kitchenPanel, workAreaPanel);
+        userInputPanel = new UserInputPanel(prison,scorePanel, lowSecurityUnitPanel, mediumSecurityUnitPanel, highSecurityUnitPanel, yardPanel, kitchenPanel, workAreaPanel);
 
         mainFrame = new JFrame();
         mainFrame.setTitle("JailBreak");
