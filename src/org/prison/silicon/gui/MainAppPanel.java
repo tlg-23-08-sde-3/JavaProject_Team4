@@ -11,27 +11,20 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.Map;
 
-public class MainGui {
+public class MainAppPanel {
     JFrame mainFrame;
-    // LowSecurityUnitPanel lowSecurityUnitPanel;
     FacilityAreaPanel lowSecurityUnitPanel;
-    // MediumSecurityUnitPanel mediumSecurityUnitPanel;
     FacilityAreaPanel mediumSecurityUnitPanel;
-    // HighSecurityUnitPanel highSecurityUnitPanel;
     FacilityAreaPanel highSecurityUnitPanel;
-    // YardPanel yardPanel;
     FacilityAreaPanel yardPanel;
-    // KitchenPanel kitchenPanel;
     FacilityAreaPanel kitchenPanel;
-    // WorkAreaPanel workAreaPanel;
     FacilityAreaPanel workAreaPanel;
     ScorePanel scorePanel;
     UserInputPanel userInputPanel;
 
-    public MainGui(Prison prison, Facility lowSecurityUnit, Facility mediumSecurityUnit, Facility highSecurityUnit, Facility yard,
-                   Facility kitchen, Facility workArea) throws IOException {
+    public MainAppPanel(Prison prison, Facility lowSecurityUnit, Facility mediumSecurityUnit, Facility highSecurityUnit, Facility yard,
+                        Facility kitchen, Facility workArea) throws IOException {
 
-        // lowSecurityUnitPanel = new LowSecurityUnitPanel(lowSecurityUnit);
         lowSecurityUnitPanel = new FacilityAreaPanel(lowSecurityUnit, "Low Security Unit");
         mediumSecurityUnitPanel = new FacilityAreaPanel(mediumSecurityUnit, "Medium Security Panel");
         highSecurityUnitPanel = new FacilityAreaPanel(highSecurityUnit, "High Security Unit");
@@ -57,13 +50,6 @@ public class MainGui {
         mainFrame.setSize(1300, 800);
         mainFrame.setVisible(true);
         mainFrame.setResizable(false);
-
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
     }
 
     // Action method to repaint the GUI as needed

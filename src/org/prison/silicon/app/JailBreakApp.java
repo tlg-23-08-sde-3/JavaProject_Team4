@@ -1,9 +1,11 @@
 package org.prison.silicon.app;
 
 import org.prison.silicon.facility.Prison;
-import org.prison.silicon.gui.MainGui;
+import org.prison.silicon.gui.MainAppFrame;
 import org.prison.silicon.population.Inmate;
 import org.prison.silicon.population.InmateLoader;
+
+import javax.swing.*;
 
 import static org.prison.silicon.facility.Facility.*;
 import java.io.IOException;
@@ -11,14 +13,16 @@ import java.util.List;
 import java.util.Random;
 
 public class JailBreakApp {
-    private static final int winTimeLimit = 100_000;
+    private static int winTimeLimit;
     public static Prison prison = new Prison("Prison", LOW_SECURITY_UNIT, MEDIUM_SECURITY_UNIT, HIGH_SECURITY_UNIT, YARD, KITCHEN, WORK_AREA);
+    MainAppFrame mainAppFrame;
 
     public void execute() throws IOException {
+        int userInputTimer = Integer.parseInt(JOptionPane.showInputDialog("Minutes in this round [1 - 10]: ", 5));
+        winTimeLimit = userInputTimer * 60_000;
         loadInmates();
-
         updateInitialRiskRating();
-        loadGUI();
+        mainAppFrame = new MainAppFrame(prison);
         startWinTimer();
     }
 
@@ -35,21 +39,6 @@ public class JailBreakApp {
         WORK_AREA.calculateRiskRating();
         KITCHEN.calculateRiskRating();
         prison.calculateRiskRating();
-    }
-
-    private void loadGUI() throws IOException {
-        // launch GUI
-        MainGui mainGui = new MainGui(prison, LOW_SECURITY_UNIT, MEDIUM_SECURITY_UNIT, HIGH_SECURITY_UNIT, YARD, KITCHEN, WORK_AREA);
-
-
-        // Update inmate counts in each area by passing Maps in this order
-        //      [lowSecurityUnit, mediumSecurityUnit, highSecurityUnit, yard, kitchen]
-        mainGui.updateCounts(LOW_SECURITY_UNIT.getInmateMap(),
-                MEDIUM_SECURITY_UNIT.getInmateMap(),
-                HIGH_SECURITY_UNIT.getInmateMap(),
-                YARD.getInmateMap(),
-                KITCHEN.getInmateMap(),
-                WORK_AREA.getInmateMap());
     }
 
     private void loadInmates() throws IOException {
