@@ -14,23 +14,34 @@ import java.util.Random;
 
 public class JailBreakApp {
     private static final int winTimeLimit = 100_000;
-    public static Facility lowSecurityUnit = new Facility(FacilityList.LOW_SECURITY_UNIT, 15, SecurityRating.LOW);
-    public static Facility mediumSecurityUnit = new Facility(FacilityList.MEDIUM_SECURITY_UNIT, 15, SecurityRating.MEDIUM);
-    public static Facility highSecurityUnit = new Facility(FacilityList.HIGH_SECURITY_UNIT, 15, SecurityRating.HIGH);
-    public static Facility yard = new Facility(FacilityList.YARD, 75, SecurityRating.MEDIUM);
-    public static Facility kitchen = new Facility(FacilityList.KITCHEN, 75, SecurityRating.MEDIUM);
-    public static Facility workArea = new Facility(FacilityList.WORK_AREA, 75, SecurityRating.MEDIUM);
+    public static Facility lowSecurityUnit = new Facility(FacilityList.LOW_SECURITY_UNIT, 30, SecurityRating.LOW);
+    public static Facility mediumSecurityUnit = new Facility(FacilityList.MEDIUM_SECURITY_UNIT, 30, SecurityRating.MEDIUM);
+    public static Facility highSecurityUnit = new Facility(FacilityList.HIGH_SECURITY_UNIT, 25, SecurityRating.HIGH);
+    public static Facility yard = new Facility(FacilityList.YARD, 20, SecurityRating.MEDIUM);
+    public static Facility kitchen = new Facility(FacilityList.KITCHEN, 30, SecurityRating.MEDIUM);
+    public static Facility workArea = new Facility(FacilityList.WORK_AREA, 20, SecurityRating.MEDIUM);
     public static Prison prison = new Prison("Prison", lowSecurityUnit, mediumSecurityUnit, highSecurityUnit, yard, kitchen, workArea);
 
     public void execute() throws IOException {
         loadInmates();
         loadGUI();
         startWinTimer();
+        updateInitalRiskRating();
     }
 
     private void startWinTimer() {
         WinTimer winTimer = new WinTimer(winTimeLimit);
         winTimer.start();
+    }
+
+    private void updateInitalRiskRating() {
+        lowSecurityUnit.calculateRiskRating();
+        mediumSecurityUnit.calculateRiskRating();
+        highSecurityUnit.calculateRiskRating();
+        yard.calculateRiskRating();
+        workArea.calculateRiskRating();
+        kitchen.calculateRiskRating();
+        prison.calculateRiskRating();
     }
 
     private void loadGUI() throws IOException {
@@ -63,23 +74,29 @@ public class JailBreakApp {
                     switch(inmate.getSecurityRating()) {
                         case LOW:
                             lowSecurityUnit.addInmate(inmate);
+                            inmate.setCurrentLocation(FacilityList.LOW_SECURITY_UNIT);
                             break;
                         case MEDIUM:
                             mediumSecurityUnit.addInmate(inmate);
+                            inmate.setCurrentLocation(FacilityList.MEDIUM_SECURITY_UNIT);
                             break;
                         case HIGH:
                             highSecurityUnit.addInmate(inmate);
+                            inmate.setCurrentLocation(FacilityList.HIGH_SECURITY_UNIT);
                             break;
                     }
                     break;
                 case 2:
                     kitchen.addInmate(inmate);
+                    inmate.setCurrentLocation(FacilityList.KITCHEN);
                     break;
                 case 3:
                     yard.addInmate(inmate);
+                    inmate.setCurrentLocation(FacilityList.YARD);
                     break;
                 case 4:
                     workArea.addInmate(inmate);
+                    inmate.setCurrentLocation(FacilityList.WORK_AREA);
                     break;
             }
         }
