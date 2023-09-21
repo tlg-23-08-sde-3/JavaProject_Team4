@@ -1,6 +1,7 @@
 //package org.prison.silicon.gui;
 package org.prison.silicon.gui;
 
+import org.prison.silicon.facility.Facility;
 import org.prison.silicon.facility.Prison;
 
 import org.prison.silicon.population.Inmate;
@@ -22,16 +23,17 @@ public class MainGui {
     ScorePanel scorePanel;
 
 
-    public MainGui(Prison prison) throws IOException {
+    public MainGui(Prison prison, Facility lowSecurityUnit, Facility mediumSecurityUnit, Facility highSecurityUnit, Facility yard,
+                   Facility kitchen, Facility workArea) throws IOException {
 
-        userInputPanel = new UserInputPanel(prison);
-        lowSecurityUnitPanel = new LowSecurityUnitPanel();
-        mediumSecurityUnitPanel = new MediumSecurityUnitPanel();
-        highSecurityUnitPanel = new HighSecurityUnitPanel();
-        yardPanel = new YardPanel();
-        kitchenPanel = new KitchenPanel();
-        workAreaPanel = new WorkAreaPanel();
-        scorePanel = new ScorePanel();
+        lowSecurityUnitPanel = new LowSecurityUnitPanel(lowSecurityUnit);
+        mediumSecurityUnitPanel = new MediumSecurityUnitPanel(mediumSecurityUnit);
+        highSecurityUnitPanel = new HighSecurityUnitPanel(highSecurityUnit);
+        yardPanel = new YardPanel(yard);
+        kitchenPanel = new KitchenPanel(kitchen);
+        workAreaPanel = new WorkAreaPanel(workArea);
+        scorePanel = new ScorePanel(prison, lowSecurityUnit, mediumSecurityUnit, highSecurityUnit, yard, kitchen, workArea);
+        userInputPanel = new UserInputPanel(prison, lowSecurityUnitPanel, mediumSecurityUnitPanel, highSecurityUnitPanel, yardPanel, kitchenPanel, workAreaPanel);
 
         mainFrame = new JFrame();
         mainFrame.setTitle("JailBreak");
@@ -66,7 +68,7 @@ public class MainGui {
     // Update all Panel counts
     public void updateCounts(Map<Integer, Inmate> lowSecurityMap, Map<Integer, Inmate> mediumSecurityMap,
                              Map<Integer, Inmate> highSecurityMap, Map<Integer, Inmate> yardMap,
-                             Map<Integer, Inmate> kitchenMap, Map<Integer, Inmate> workAreaMap){
+                             Map<Integer, Inmate> kitchenMap, Map<Integer, Inmate> workAreaMap) {
 
         lowSecurityUnitPanel.updateInmateList(lowSecurityMap);
         mediumSecurityUnitPanel.updateInmateList(mediumSecurityMap);

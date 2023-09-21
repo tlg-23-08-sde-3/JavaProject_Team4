@@ -1,5 +1,6 @@
 package org.prison.silicon.gui;
 
+import org.prison.silicon.facility.Facility;
 import org.prison.silicon.population.Inmate;
 
 import javax.imageio.ImageIO;
@@ -12,6 +13,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class KitchenPanel {
+    private final Facility kitchen;
     // Sub-Panels for the KitchenPanel
     private final JPanel kitchenPanel;
     // private final JLabel title;
@@ -28,7 +30,8 @@ public class KitchenPanel {
 
 
     // Constructor - throws IOException since it loading an image file with ImageIO.read
-    public KitchenPanel() throws IOException {
+    public KitchenPanel(Facility kitchen) throws IOException {
+        this.kitchen = kitchen;
         // KitchenPanel & KitchenPanel Title
         kitchenPanel = new JPanel();
         titlePanel = new JPanel();
@@ -39,7 +42,7 @@ public class KitchenPanel {
     }
 
     // KitchenPanel method
-    private void KitchenPanelSettings(){
+    private void KitchenPanelSettings() {
         kitchenPanel.setLayout(new BoxLayout(kitchenPanel, BoxLayout.Y_AXIS));
         JLabel title = new JLabel();
         titlePanel.add(title);
@@ -52,14 +55,17 @@ public class KitchenPanel {
     }
 
     // paints the inmate clipart for each inmate in currentInmates for this location
-    private void paintInmates() {
-        try{
-            for(Map.Entry<Integer, Inmate> inmate : currentInmates.entrySet()) {
+    public void paintInmates() {
+        inmateMainPanel.removeAll();
+        currentInmates.clear();
+        currentInmates.putAll(kitchen.getInmateMap());
+        try {
+            for (Map.Entry<Integer, Inmate> inmate : currentInmates.entrySet()) {
                 JPanel inmateIconPanel = new JPanel();
                 inmateIconPanel.setLayout(new BoxLayout(inmateIconPanel, BoxLayout.Y_AXIS));
                 JLabel inmateIdLabel = new JLabel(inmate.getKey().toString());
-                if(!inmate.getValue().isGangLeader()){
-                    inmateIconPanel.add (new JLabel(new ImageIcon((normalInmateIcon)))).setBounds(3, 1, 35, 65);
+                if (!inmate.getValue().isGangLeader()) {
+                    inmateIconPanel.add(new JLabel(new ImageIcon((normalInmateIcon)))).setBounds(3, 1, 35, 65);
                 } else {
                     inmateIconPanel.add(new JLabel(new ImageIcon((gangLeaderInmateIcon)))).setBounds(3, 1, 35, 65);
                 }
@@ -73,7 +79,7 @@ public class KitchenPanel {
         inmateMainPanel.repaint();
     }
 
-    private void addPanels(){
+    private void addPanels() {
         kitchenPanel.add(titlePanel);
         kitchenPanel.add(inmateMainPanel);
     }
@@ -84,7 +90,7 @@ public class KitchenPanel {
         return kitchenPanel;
     }
 
-    public void getInmateMainPanel(){
+    public void getInmateMainPanel() {
         paintInmates();
     }
 

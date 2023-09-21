@@ -4,11 +4,11 @@ import org.prison.silicon.facility.FacilityList;
 import org.prison.silicon.facility.Prison;
 import org.prison.silicon.SecurityRating;
 
-public class HighSecurityInmate extends Inmate{
+public class HighSecurityInmate extends Inmate {
     private FacilityList currentLocation;
     private Prison prison;
 
-    public HighSecurityInmate(int idNumber, String name, boolean gangLeader, SecurityRating securityRating, Prison prison){
+    public HighSecurityInmate(int idNumber, String name, boolean gangLeader, SecurityRating securityRating, Prison prison) {
         super(idNumber, name, gangLeader, securityRating, prison);
         setCurrentLocation(FacilityList.HIGH_SECURITY_UNIT);
         setHappiness(30);
