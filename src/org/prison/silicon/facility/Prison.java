@@ -1,7 +1,9 @@
 package org.prison.silicon.facility;
 
 import org.prison.silicon.SecurityRating;
+import org.prison.silicon.gui.MainGui;
 import org.prison.silicon.population.Inmate;
+import org.w3c.dom.ls.LSOutput;
 
 import javax.swing.*;
 import java.util.HashMap;
@@ -9,8 +11,8 @@ import java.util.Map;
 import java.util.Objects;
 
 public class Prison {
-    private String name;
     public Map<Facility, SecurityRating> prisonMap;
+    private String name;
     private int funds;
     private int totalDays;
     private int riskRating;
@@ -83,10 +85,10 @@ public class Prison {
         return result;
     }
 
-    public boolean moveInmate(Inmate inmate, FacilityList newLocation){
+    public boolean moveInmate(Inmate inmate, FacilityList newLocation) {
         boolean successfulMove = false;
-        try{
-            if(!inmate.getCurrentLocation().equals(newLocation)){
+        try {
+            if (!inmate.getCurrentLocation().equals(newLocation)) {
                 Facility currentFacility = parseFacility(inmate.getCurrentLocation());
                 Facility newFacility = parseFacility(newLocation);
                 // Move the inmate to a new location
@@ -107,11 +109,12 @@ public class Prison {
             String title = "Invalid Move To " + newLocation.getDisplayName();
             InvalidChoice(title, message);
         }
+
         return successfulMove;
     }
 
     // Invalid move method that generates a pop-up window
-    private void InvalidChoice(String title, String message){
+    private void InvalidChoice(String title, String message) {
         JOptionPane.showMessageDialog(null,
                 message,
                 title,
@@ -128,10 +131,10 @@ public class Prison {
             }
         }
         if (Objects.equals(desiredInmate, null)) {
-        String message = "Inmate ID \"" + id + "\" was not found ";
-        String title = "Inmate ID Not Found";
-        InvalidChoice(title, message);
-    }
+            String message = "Inmate ID \"" + id + "\" was not found ";
+            String title = "Inmate ID Not Found";
+            InvalidChoice(title, message);
+        }
         return desiredInmate;
     }
 
@@ -155,4 +158,5 @@ public class Prison {
     public Map<Facility, SecurityRating> getPrisonMap() {
         return prisonMap;
     }
+
 }
