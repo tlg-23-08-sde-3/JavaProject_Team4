@@ -13,37 +13,43 @@ import java.util.Map;
 
 public class MainGui {
     JFrame mainFrame;
-    LowSecurityUnitPanel lowSecurityUnitPanel;
-    MediumSecurityUnitPanel mediumSecurityUnitPanel;
-    HighSecurityUnitPanel highSecurityUnitPanel;
-    UserInputPanel userInputPanel;
-    YardPanel yardPanel;
-    KitchenPanel kitchenPanel;
-    WorkAreaPanel workAreaPanel;
+    // LowSecurityUnitPanel lowSecurityUnitPanel;
+    FacilityAreaPanel lowSecurityUnitPanel;
+    // MediumSecurityUnitPanel mediumSecurityUnitPanel;
+    FacilityAreaPanel mediumSecurityUnitPanel;
+    // HighSecurityUnitPanel highSecurityUnitPanel;
+    FacilityAreaPanel highSecurityUnitPanel;
+    // YardPanel yardPanel;
+    FacilityAreaPanel yardPanel;
+    // KitchenPanel kitchenPanel;
+    FacilityAreaPanel kitchenPanel;
+    // WorkAreaPanel workAreaPanel;
+    FacilityAreaPanel workAreaPanel;
     ScorePanel scorePanel;
-
+    UserInputPanel userInputPanel;
 
     public MainGui(Prison prison, Facility lowSecurityUnit, Facility mediumSecurityUnit, Facility highSecurityUnit, Facility yard,
                    Facility kitchen, Facility workArea) throws IOException {
 
-        lowSecurityUnitPanel = new LowSecurityUnitPanel(lowSecurityUnit);
-        mediumSecurityUnitPanel = new MediumSecurityUnitPanel(mediumSecurityUnit);
-        highSecurityUnitPanel = new HighSecurityUnitPanel(highSecurityUnit);
-        yardPanel = new YardPanel(yard);
-        kitchenPanel = new KitchenPanel(kitchen);
-        workAreaPanel = new WorkAreaPanel(workArea);
+        // lowSecurityUnitPanel = new LowSecurityUnitPanel(lowSecurityUnit);
+        lowSecurityUnitPanel = new FacilityAreaPanel(lowSecurityUnit, "Low Security Unit");
+        mediumSecurityUnitPanel = new FacilityAreaPanel(mediumSecurityUnit, "Medium Security Panel");
+        highSecurityUnitPanel = new FacilityAreaPanel(highSecurityUnit, "High Security Unit");
+        yardPanel = new FacilityAreaPanel(yard, "Yard");
+        kitchenPanel = new FacilityAreaPanel(kitchen, "Kitchen");
+        workAreaPanel = new FacilityAreaPanel(workArea, "Work Area");
         scorePanel = new ScorePanel(prison, lowSecurityUnit, mediumSecurityUnit, highSecurityUnit, yard, kitchen, workArea);
         userInputPanel = new UserInputPanel(prison,scorePanel, lowSecurityUnitPanel, mediumSecurityUnitPanel, highSecurityUnitPanel, yardPanel, kitchenPanel, workAreaPanel);
 
         mainFrame = new JFrame();
         mainFrame.setTitle("JailBreak");
-        mainFrame.add(lowSecurityUnitPanel.getLowSecurityUnitPanel());
-        mainFrame.add(mediumSecurityUnitPanel.getMediumSecurityUnitPanel());
-        mainFrame.add(highSecurityUnitPanel.getHighSecurityUnitPanel());
+        mainFrame.add(lowSecurityUnitPanel.getFacilityUnitPanel());
+        mainFrame.add(mediumSecurityUnitPanel.getFacilityUnitPanel());
+        mainFrame.add(highSecurityUnitPanel.getFacilityUnitPanel());
         mainFrame.add(scorePanel.getScorePanel());
-        mainFrame.add(yardPanel.getYardPanel());
-        mainFrame.add(kitchenPanel.getKitchenPanel());
-        mainFrame.add(workAreaPanel.getWorkAreaPanel());
+        mainFrame.add(yardPanel.getFacilityUnitPanel());
+        mainFrame.add(kitchenPanel.getFacilityUnitPanel());
+        mainFrame.add(workAreaPanel.getFacilityUnitPanel());
         mainFrame.add(userInputPanel.getUserInputPanel());
 
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

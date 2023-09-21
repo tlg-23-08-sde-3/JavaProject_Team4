@@ -12,13 +12,16 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class YardPanel {
-    private final Facility yard;
-    // Sub-Panels for the yardPanel
-    private final JPanel yardPanel;
+public class FacilityAreaPanel {
+
+    // lowSecurityUnit reference
+    private final Facility facilityUnit;
+    // Sub-Panels for the lowSecurityUnitPanel
+    private final JPanel facilityUnitPanel;
     // private final JLabel title;
     private final JPanel inmateMainPanel;
     private final JPanel titlePanel;
+    private final JLabel title;
     // Inmate TreeMap
     private final Map<Integer, Inmate> currentInmates = new TreeMap<>();
     // Normal inmate image
@@ -30,35 +33,34 @@ public class YardPanel {
 
 
     // Constructor - throws IOException since it loading an image file with ImageIO.read
-    public YardPanel(Facility yard) throws IOException {
-        this.yard = yard;
-        // yardPanel & yardPanel Title
-        yardPanel = new JPanel();
+    public FacilityAreaPanel(Facility facilityUnit, String name) throws IOException {
+        this.facilityUnit = facilityUnit;
+        // lowSecurityUnitPanel & lowSecurityUnitPanel Title
+        facilityUnitPanel = new JPanel();
         titlePanel = new JPanel();
         inmateMainPanel = new JPanel();
-        yardPanelSettings();
+        title = new JLabel(name);
+        facilityUnitSetup();
         paintInmates();
         addPanels();
     }
 
-    // yardPanelSettings method
-    private void yardPanelSettings() {
-        yardPanel.setLayout(new BoxLayout(yardPanel, BoxLayout.Y_AXIS));
-        JLabel title = new JLabel();
+    // lowSecurityUnitPanelSettings method
+    private void facilityUnitSetup() {
+        facilityUnitPanel.setLayout(new BoxLayout(facilityUnitPanel, BoxLayout.Y_AXIS));
+        facilityUnitPanel.setBackground(Color.gray);
         titlePanel.add(title);
-        title.setBackground(Color.lightGray);
+        title.setBackground(Color.gray);
         titlePanel.setMaximumSize(new Dimension(320, 40));
-        title.setText("Yard Area");
         title.setFont(title.getFont().deriveFont(Font.BOLD));
-        yardPanel.setBorder(BorderFactory.createLineBorder(Color.black, 5, false));
-        yardPanel.setBackground(Color.lightGray);
+        facilityUnitPanel.setBorder(BorderFactory.createLineBorder(Color.black, 5, false));
     }
 
     // paints the inmate clipart for each inmate in currentInmates for this location
     public void paintInmates() {
         inmateMainPanel.removeAll();
         currentInmates.clear();
-        currentInmates.putAll(yard.getInmateMap());
+        currentInmates.putAll(facilityUnit.getInmateMap());
         try {
             for (Map.Entry<Integer, Inmate> inmate : currentInmates.entrySet()) {
                 JPanel inmateIconPanel = new JPanel();
@@ -80,14 +82,14 @@ public class YardPanel {
     }
 
     private void addPanels() {
-        yardPanel.add(titlePanel);
-        yardPanel.add(inmateMainPanel);
+        facilityUnitPanel.add(titlePanel);
+        facilityUnitPanel.add(inmateMainPanel);
     }
 
-    // Returns the yardPanel
-    public JPanel getYardPanel() {
-        yardPanel.repaint();
-        return yardPanel;
+    // Returns the lowSecurityUnitPanel
+    public JPanel getFacilityUnitPanel() {
+        facilityUnitPanel.repaint();
+        return facilityUnitPanel;
     }
 
     public void getInmateMainPanel() {
