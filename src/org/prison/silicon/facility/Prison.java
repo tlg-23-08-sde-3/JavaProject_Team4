@@ -1,9 +1,7 @@
 package org.prison.silicon.facility;
 
 import org.prison.silicon.SecurityRating;
-import org.prison.silicon.gui.MainGui;
 import org.prison.silicon.population.Inmate;
-import org.w3c.dom.ls.LSOutput;
 
 import javax.swing.*;
 import java.util.HashMap;
@@ -11,7 +9,7 @@ import java.util.Map;
 import java.util.Objects;
 
 public class Prison {
-    public Map<Facility, SecurityRating> prisonMap;
+    private Map<Facility, SecurityRating> prisonMap;
     private String name;
     private int funds;
     private int totalDays;
@@ -48,10 +46,18 @@ public class Prison {
 
     public void calculateRiskRating() {
         int sum = 0;
+        boolean facilityRiot = false;
+        int riotCount = 0;
         for (Facility facility : prisonMap.keySet()) {
+            if (facility.getRiskRating() >= 100) {
+                facilityRiot = true;
+                riotCount++;
+            }
             sum += facility.getRiskRating();
         }
-        this.riskRating = sum / prisonMap.size();
+        int avgRisk = sum / prisonMap.size();
+
+        this.riskRating = facilityRiot ? avgRisk + (riotCount * 25) : avgRisk;
     }
 
     public void displayInmates() {

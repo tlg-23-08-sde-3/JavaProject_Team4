@@ -42,7 +42,8 @@ public class FacilityTest {
 
     @Test
     public void addInmate_inmateAddedToCurrentInmatesMap_whenSingleInmatePassed() {
-        KITCHEN.currentInmates.clear();
+        // Test passed. currentInmates changed to private. Commenting out calls
+        // KITCHEN.currentInmates.clear();
         KITCHEN.addInmate(in1);
         assertEquals(1, KITCHEN.getInmateMap().size());
         assertArrayEquals(new Integer[]{1001}, KITCHEN.getInmatesIds());
@@ -50,7 +51,8 @@ public class FacilityTest {
 
     @Test
     public void addInmate_inmatesAddedToCurrentInmatesMap_whenMultipleInmatesPassed() {
-        KITCHEN.currentInmates.clear();
+        // Test passed. currentInmates changed to private. Commenting out calls
+        // KITCHEN.currentInmates.clear();
         KITCHEN.addInmate(in1, in2, in3);
         assertEquals(3, KITCHEN.getInmateMap().size());
         assertArrayEquals(new Integer[]{1001, 1002, 1003}, KITCHEN.getInmatesIds());
@@ -58,7 +60,8 @@ public class FacilityTest {
 
     @Test
     public void removeInmate_inmateRemovedFromCurrentInmatesMap_whenSingleInmatePassed() {
-        KITCHEN.currentInmates.clear();
+        // Test passed. currentInmates changed to private. Commenting out calls
+        // KITCHEN.currentInmates.clear();
         KITCHEN.addInmate(in1);
         KITCHEN.removeInmate(1001);
         assertEquals(0, KITCHEN.getInmateMap().size());
@@ -67,7 +70,8 @@ public class FacilityTest {
 
     @Test
     public void removeInmate_inmateRemovedFromCurrentInmatesMap_whenMultipleInmatePassed() {
-        KITCHEN.currentInmates.clear();
+        // Test passed. currentInmates changed to private. Commenting out calls
+        // KITCHEN.currentInmates.clear();
         KITCHEN.addInmate(in1, in2, in3);
         assertEquals(3, KITCHEN.getInmateMap().size());
         assertArrayEquals(new Integer[]{1001, 1002, 1003}, KITCHEN.getInmatesIds());

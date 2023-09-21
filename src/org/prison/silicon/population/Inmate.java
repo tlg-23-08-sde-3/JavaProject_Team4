@@ -4,6 +4,8 @@ import org.prison.silicon.facility.Facility;
 import org.prison.silicon.facility.Prison;
 import org.prison.silicon.SecurityRating;
 
+import static org.prison.silicon.facility.Facility.*;
+
 public abstract class Inmate implements Comparable<Inmate> {
     private int idNumber;
     private String name;
@@ -23,7 +25,14 @@ public abstract class Inmate implements Comparable<Inmate> {
 
     // Business Abstract Methods - delegated to the subclasses
     public abstract void work();
+    public abstract void sleep();
 
+    @Override
+    public int compareTo(Inmate other) {
+        return this.getIdNumber() - other.getIdNumber();
+    }
+
+    // Business methods
     public void move(Facility location) {
         // Attempt to move the inmate to the passed location
         boolean successfulMove = prison.moveInmate(this, location);
@@ -32,19 +41,17 @@ public abstract class Inmate implements Comparable<Inmate> {
         }
     }
 
-    ;
-
-    public abstract void eat();
-
-    public abstract void sleep();
-
-    @Override
-    public int compareTo(Inmate other) {
-        return this.getIdNumber() - other.getIdNumber();
+    // Future functionality may have inmates eat() differently. This may be moved to the subclasses
+    public void eat() {
+        Facility location = KITCHEN;
+        boolean successfulMove = this.getPrison().moveInmate(this, location);
+        if (successfulMove) {
+            setHappiness(getHappiness() + 5);
+            this.setCurrentLocation(location);
+        }
     }
 
     // Accessor Methods
-
     public int getIdNumber() {
         return idNumber;
     }

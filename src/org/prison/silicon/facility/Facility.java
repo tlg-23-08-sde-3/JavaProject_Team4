@@ -4,41 +4,39 @@ import org.prison.silicon.SecurityRating;
 import org.prison.silicon.population.Inmate;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toMap;
 
 public enum Facility {
     LOW_SECURITY_UNIT("Low Security Unit", 30, SecurityRating.LOW),
     MEDIUM_SECURITY_UNIT("Medium Security Unit", 30, SecurityRating.MEDIUM),
-    HIGH_SECURITY_UNIT("High Security Unit", 20, SecurityRating.HIGH),
-    YARD("Yard", 20, SecurityRating.MEDIUM),
+    HIGH_SECURITY_UNIT("High Security Unit", 30, SecurityRating.HIGH),
+    YARD("Yard", 30, SecurityRating.MEDIUM),
     KITCHEN("Kitchen", 30, SecurityRating.MEDIUM),
-    WORK_AREA("Work Area", 20, SecurityRating.MEDIUM);
+    WORK_AREA("Work Area", 30, SecurityRating.MEDIUM);
 
     // fields
     private final String name;
     private final int maxCapacity;
     private final SecurityRating securityRating;
-    Map<Integer, Inmate> currentInmates;
-    int riskRating;
+    private Map<Integer, Inmate> currentInmates;
+    private int riskRating;
 
     // static initializer
-    public static Map<Integer, Facility> idMap = Arrays.stream(Facility.values())
+    private static Map<Integer, Facility> idMap = Arrays.stream(Facility.values())
                     .collect(toMap(Enum::ordinal, facility -> facility));
+
+    public static Map<Integer, Facility> getIdMap() {
+        return idMap;
+    }
 
     Facility(String name, int maxCapacity, SecurityRating securityRating) {
         this.name = name;
         this.maxCapacity = maxCapacity;
         this.securityRating = securityRating;
         this.currentInmates = new TreeMap<>();
-    }
-
-    public static Map<Integer, Facility> getIdMap() {
-        return idMap;
     }
 
     // Business methods
@@ -77,7 +75,7 @@ public enum Facility {
 
     public void displayCurrentInmates() {
         for (Inmate inmate : getInmateMap().values()) {
-            System.out.printf(inmate.toString());
+            System.out.print(inmate.toString());
         }
     }
 
@@ -108,5 +106,9 @@ public enum Facility {
 
     public int getRiskRating() {
         return riskRating;
+    }
+
+    public Map<Integer, Inmate> getCurrentInmates() {
+        return currentInmates;
     }
 }
