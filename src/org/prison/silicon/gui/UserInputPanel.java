@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class UserInputPanel {
+    private final ScorePanel scorePanel;
     private final JPanel userInputPanel;
     private final JLabel title;
     // User action labels
@@ -30,9 +31,10 @@ public class UserInputPanel {
             "HIGH_SECURITY_UNIT", "KITCHEN", "YARD", "WORK_AREA"};
 
 
-    public UserInputPanel(Prison prison, LowSecurityUnitPanel lowSecurityUnitpanel, MediumSecurityUnitPanel mediumSecurityUnitPanel,
+    public UserInputPanel(Prison prison, ScorePanel scorePanel, LowSecurityUnitPanel lowSecurityUnitpanel, MediumSecurityUnitPanel mediumSecurityUnitPanel,
                           HighSecurityUnitPanel highSecurityUnitPanel, YardPanel yardPanel, KitchenPanel kitchenPanel, WorkAreaPanel workAreaPanel) {
 
+        this.scorePanel = scorePanel;
         // Main panel
         userInputPanel = new JPanel();
         userInputPanel.setLayout(new BoxLayout(userInputPanel, BoxLayout.Y_AXIS));
@@ -96,6 +98,7 @@ public class UserInputPanel {
                 }
                 System.out.println(prison.locateInmateByID(inmateId));
                 inmatefield.setText("");
+                scorePanel.paintProgressBars();
                 lowSecurityUnitpanel.paintInmates();
                 mediumSecurityUnitPanel.paintInmates();
                 highSecurityUnitPanel.paintInmates();

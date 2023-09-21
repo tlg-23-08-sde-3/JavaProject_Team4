@@ -24,9 +24,10 @@ public class JailBreakApp {
 
     public void execute() throws IOException {
         loadInmates();
+        updateInitialRiskRating();
         loadGUI();
         startWinTimer();
-        updateInitalRiskRating();
+        updateInitialRiskRating();
     }
 
     private void startWinTimer() {
@@ -34,7 +35,7 @@ public class JailBreakApp {
         winTimer.start();
     }
 
-    private void updateInitalRiskRating() {
+    private void updateInitialRiskRating() {
         lowSecurityUnit.calculateRiskRating();
         mediumSecurityUnit.calculateRiskRating();
         highSecurityUnit.calculateRiskRating();
