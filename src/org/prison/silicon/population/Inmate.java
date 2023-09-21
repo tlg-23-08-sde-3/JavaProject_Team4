@@ -30,7 +30,9 @@ public abstract class Inmate implements Comparable<Inmate> {
         if (successfulMove) {
             this.setCurrentLocation(location);
         }
-    };
+    }
+
+    ;
 
     public abstract void eat();
 

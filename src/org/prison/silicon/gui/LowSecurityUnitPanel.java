@@ -1,5 +1,6 @@
 package org.prison.silicon.gui;
 
+import org.prison.silicon.facility.Facility;
 import org.prison.silicon.population.Inmate;
 
 import javax.imageio.ImageIO;
@@ -11,7 +12,10 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class LowSecurityUnitPanel{
+public class LowSecurityUnitPanel {
+
+    // lowSecurityUnit reference
+    private final Facility lowSecurityUnit;
     // Sub-Panels for the lowSecurityUnitPanel
     private final JPanel lowSecurityUnitPanel;
     // private final JLabel title;
@@ -28,7 +32,8 @@ public class LowSecurityUnitPanel{
 
 
     // Constructor - throws IOException since it loading an image file with ImageIO.read
-    public LowSecurityUnitPanel() throws IOException {
+    public LowSecurityUnitPanel(Facility lowSecurityUnit) throws IOException {
+        this.lowSecurityUnit = lowSecurityUnit;
         // lowSecurityUnitPanel & lowSecurityUnitPanel Title
         lowSecurityUnitPanel = new JPanel();
         titlePanel = new JPanel();
@@ -39,7 +44,7 @@ public class LowSecurityUnitPanel{
     }
 
     // lowSecurityUnitPanelSettings method
-    private void lowSecurityUnitPanelSettings(){
+    private void lowSecurityUnitPanelSettings() {
         lowSecurityUnitPanel.setLayout(new BoxLayout(lowSecurityUnitPanel, BoxLayout.Y_AXIS));
         lowSecurityUnitPanel.setBackground(Color.gray);
         JLabel title = new JLabel();
@@ -52,14 +57,17 @@ public class LowSecurityUnitPanel{
     }
 
     // paints the inmate clipart for each inmate in currentInmates for this location
-    private void paintInmates() {
-        try{
-            for(Map.Entry<Integer, Inmate> inmate : currentInmates.entrySet()) {
+    public void paintInmates() {
+        inmateMainPanel.removeAll();
+        currentInmates.clear();
+        currentInmates.putAll(lowSecurityUnit.getInmateMap());
+        try {
+            for (Map.Entry<Integer, Inmate> inmate : currentInmates.entrySet()) {
                 JPanel inmateIconPanel = new JPanel();
                 inmateIconPanel.setLayout(new BoxLayout(inmateIconPanel, BoxLayout.Y_AXIS));
                 JLabel inmateIdLabel = new JLabel(inmate.getKey().toString());
-                if(!inmate.getValue().isGangLeader()){
-                    inmateIconPanel.add (new JLabel(new ImageIcon((normalInmateIcon)))).setBounds(3, 1, 35, 65);
+                if (!inmate.getValue().isGangLeader()) {
+                    inmateIconPanel.add(new JLabel(new ImageIcon((normalInmateIcon)))).setBounds(3, 1, 35, 65);
                 } else {
                     inmateIconPanel.add(new JLabel(new ImageIcon((gangLeaderInmateIcon)))).setBounds(3, 1, 35, 65);
                 }
@@ -73,7 +81,7 @@ public class LowSecurityUnitPanel{
         inmateMainPanel.repaint();
     }
 
-    private void addPanels(){
+    private void addPanels() {
         lowSecurityUnitPanel.add(titlePanel);
         lowSecurityUnitPanel.add(inmateMainPanel);
     }
@@ -84,7 +92,7 @@ public class LowSecurityUnitPanel{
         return lowSecurityUnitPanel;
     }
 
-    public void getInmateMainPanel(){
+    public void getInmateMainPanel() {
         paintInmates();
     }
 

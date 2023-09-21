@@ -4,10 +4,10 @@ import org.prison.silicon.facility.FacilityList;
 import org.prison.silicon.facility.Prison;
 import org.prison.silicon.SecurityRating;
 
-public class MediumSecurityInmate extends Inmate{
+public class MediumSecurityInmate extends Inmate {
     private FacilityList currentLocation;
 
-    public MediumSecurityInmate(int idNumber, String name, boolean gangLeader, SecurityRating securityRating, Prison prison){
+    public MediumSecurityInmate(int idNumber, String name, boolean gangLeader, SecurityRating securityRating, Prison prison) {
         super(idNumber, name, gangLeader, securityRating, prison);
         setCurrentLocation(FacilityList.MEDIUM_SECURITY_UNIT);
         setHappiness(50);

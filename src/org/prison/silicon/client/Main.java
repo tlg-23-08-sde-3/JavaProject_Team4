@@ -1,6 +1,7 @@
 package org.prison.silicon.client;
 
 import org.prison.silicon.app.JailBreakApp;
+
 import java.io.IOException;
 
 public class Main {

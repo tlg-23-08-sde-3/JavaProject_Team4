@@ -46,7 +46,7 @@ public class JailBreakApp {
 
     private void loadGUI() throws IOException {
         // launch GUI
-        MainGui mainGui = new MainGui(prison);
+        MainGui mainGui = new MainGui(prison, lowSecurityUnit, mediumSecurityUnit, highSecurityUnit, yard, kitchen, workArea);
 
 
         // Update inmate counts in each area by passing Maps in this order
@@ -71,7 +71,7 @@ public class JailBreakApp {
             switch (ranLoc) {
                 case 0:
                 case 1:
-                    switch(inmate.getSecurityRating()) {
+                    switch (inmate.getSecurityRating()) {
                         case LOW:
                             lowSecurityUnit.addInmate(inmate);
                             inmate.setCurrentLocation(FacilityList.LOW_SECURITY_UNIT);

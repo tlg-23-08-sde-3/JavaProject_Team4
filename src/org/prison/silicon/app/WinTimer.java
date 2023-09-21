@@ -2,7 +2,7 @@ package org.prison.silicon.app;
 
 import javax.swing.*;
 
-class WinTimer extends Thread{
+class WinTimer extends Thread {
     private String name;
     private int winTimeout;
 
@@ -14,10 +14,9 @@ class WinTimer extends Thread{
     @Override
     public void run() {
         super.run();
-        try{
+        try {
             Thread.sleep(winTimeout);
-        }
-        catch (InterruptedException ignored) {
+        } catch (InterruptedException ignored) {
         }
         this.winPopup();
     }
