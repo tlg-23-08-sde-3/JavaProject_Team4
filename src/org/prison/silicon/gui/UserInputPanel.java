@@ -2,7 +2,6 @@ package org.prison.silicon.gui;
 
 
 import org.prison.silicon.facility.Facility;
-import org.prison.silicon.facility.FacilityList;
 import org.prison.silicon.facility.Prison;
 
 import javax.swing.*;
@@ -91,7 +90,7 @@ public class UserInputPanel {
                         prison.locateInmateByID(inmateId).work();
                         break;
                     case "Move":
-                        prison.locateInmateByID(inmateId).move(FacilityList.valueOf(selectedFacility));
+                        prison.locateInmateByID(inmateId).move(Facility.valueOf(selectedFacility));
                         break;
                 }
                 System.out.println(prison.locateInmateByID(inmateId));

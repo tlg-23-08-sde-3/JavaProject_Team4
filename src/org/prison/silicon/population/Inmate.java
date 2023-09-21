@@ -1,6 +1,6 @@
 package org.prison.silicon.population;
 
-import org.prison.silicon.facility.FacilityList;
+import org.prison.silicon.facility.Facility;
 import org.prison.silicon.facility.Prison;
 import org.prison.silicon.SecurityRating;
 
@@ -10,7 +10,7 @@ public abstract class Inmate implements Comparable<Inmate> {
     private boolean gangLeader;
     private SecurityRating securityRating;
     private int happiness;
-    private FacilityList currentLocation;
+    private Facility currentLocation;
     private Prison prison;
 
     public Inmate(int idNumber, String name, boolean gangLeader, SecurityRating securityRating, Prison prison) {
@@ -24,7 +24,7 @@ public abstract class Inmate implements Comparable<Inmate> {
     // Business Abstract Methods - delegated to the subclasses
     public abstract void work();
 
-    public void move(FacilityList location) {
+    public void move(Facility location) {
         // Attempt to move the inmate to the passed location
         boolean successfulMove = prison.moveInmate(this, location);
         if (successfulMove) {
@@ -85,11 +85,11 @@ public abstract class Inmate implements Comparable<Inmate> {
         this.happiness = happiness;
     }
 
-    public FacilityList getCurrentLocation() {
+    public Facility getCurrentLocation() {
         return currentLocation;
     }
 
-    public void setCurrentLocation(FacilityList currentLocation) {
+    public void setCurrentLocation(Facility currentLocation) {
         this.currentLocation = currentLocation;
     }
 
@@ -100,7 +100,7 @@ public abstract class Inmate implements Comparable<Inmate> {
     @Override
     public String toString() {
         String result = String.format("ID: %d, Name: %s, Current Location: %s, Security Rating: %s, Gang Leader: %s, Happiness: %d\n",
-                this.getIdNumber(), this.getName(), this.getCurrentLocation().getDisplayName(), this.getSecurityRating().getDisplayName(), this.isGangLeader(), this.getHappiness());
+                this.getIdNumber(), this.getName(), this.getCurrentLocation().getName(), this.getSecurityRating().getDisplayName(), this.isGangLeader(), this.getHappiness());
         return result;
     }
 }
