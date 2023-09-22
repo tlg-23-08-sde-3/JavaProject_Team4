@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.util.Map;
 
 public class MainAppPanel {
+
+    // Instance variables
     JFrame mainFrame;
     FacilityAreaPanel lowSecurityUnitPanel;
     FacilityAreaPanel mediumSecurityUnitPanel;
@@ -23,6 +25,7 @@ public class MainAppPanel {
     UserInputPanel userInputPanel;
     Prison prison;
 
+    // Constructor
     public MainAppPanel(Prison prison, Facility lowSecurityUnit, Facility mediumSecurityUnit, Facility highSecurityUnit, Facility yard,
                         Facility kitchen, Facility workArea) throws IOException {
 
@@ -54,11 +57,6 @@ public class MainAppPanel {
         mainFrame.setResizable(false);
     }
 
-    // Action method to repaint the GUI as needed
-    public void repaintGui() {
-        mainFrame.repaint();
-    }
-
     // Update all Panel counts
     public void updateCounts(Map<Integer, Inmate> lowSecurityMap, Map<Integer, Inmate> mediumSecurityMap,
                              Map<Integer, Inmate> highSecurityMap, Map<Integer, Inmate> yardMap,
@@ -71,7 +69,5 @@ public class MainAppPanel {
         kitchenPanel.updateInmateList(kitchenMap);
         workAreaPanel.updateInmateList(workAreaMap);
 
-        // repaint the frame after updating all areas
-        mainFrame.repaint();
     }
 }

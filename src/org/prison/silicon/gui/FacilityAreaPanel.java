@@ -14,28 +14,33 @@ import java.util.TreeMap;
 
 public class FacilityAreaPanel {
 
-    // lowSecurityUnit reference
+    // Instance variables
     private final Facility facilityUnit;
-    // Sub-Panels for the lowSecurityUnitPanel
     private final JPanel facilityUnitPanel;
-    // private final JLabel title;
     private final JPanel inmateMainPanel;
     private final JPanel titlePanel;
     private final JLabel title;
-    // Inmate TreeMap
     private final Map<Integer, Inmate> currentInmates = new TreeMap<>();
-    // Normal inmate image
-    private final BufferedImage inmatePicture1 = ImageIO.read(new File("resources/images/prisoner.png"));
-    private final Image normalInmateIcon = inmatePicture1.getScaledInstance(25, 50, Image.SCALE_DEFAULT);
-    // Gang leader inmate icon
-    private final BufferedImage inmatePicture2 = ImageIO.read(new File("resources/images/gangleader.png"));
-    private final Image gangLeaderInmateIcon = inmatePicture2.getScaledInstance(25, 50, Image.SCALE_DEFAULT);
 
+    // Images
+    private BufferedImage normalInmateImage;
+    private BufferedImage gangLeaderImage;
 
-    // Constructor - throws IOException since it loading an image file with ImageIO.read
-    public FacilityAreaPanel(Facility facilityUnit, String name) throws IOException {
+    {
+        try {
+            gangLeaderImage = ImageIO.read(new File("resources/images/gangleader.png"));
+            normalInmateImage = ImageIO.read(new File("resources/images/prisoner.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private final Image normalInmateIcon = normalInmateImage.getScaledInstance(25, 50, Image.SCALE_DEFAULT);
+    private final Image gangLeaderInmateIcon = gangLeaderImage.getScaledInstance(25, 50, Image.SCALE_DEFAULT);
+
+    // Constructor
+    public FacilityAreaPanel(Facility facilityUnit, String name) {
         this.facilityUnit = facilityUnit;
-        // lowSecurityUnitPanel & lowSecurityUnitPanel Title
         facilityUnitPanel = new JPanel();
         titlePanel = new JPanel();
         inmateMainPanel = new JPanel();
@@ -56,7 +61,8 @@ public class FacilityAreaPanel {
         facilityUnitPanel.setBorder(BorderFactory.createLineBorder(Color.black, 5, false));
     }
 
-    // paints the inmate clipart for each inmate in currentInmates for this location
+    // Paints the inmate clip are for each area of the prison
+    // First the inmateMainPanel is cleared then repainted
     public void paintInmates() {
         inmateMainPanel.removeAll();
         currentInmates.clear();
@@ -67,9 +73,9 @@ public class FacilityAreaPanel {
                 inmateIconPanel.setLayout(new BoxLayout(inmateIconPanel, BoxLayout.Y_AXIS));
                 JLabel inmateIdLabel = new JLabel(inmate.getKey().toString());
                 if (!inmate.getValue().isGangLeader()) {
-                    inmateIconPanel.add(new JLabel(new ImageIcon((normalInmateIcon)))).setBounds(3, 1, 35, 65);
+                    inmateIconPanel.add(new JLabel(new ImageIcon((normalInmateIcon))));
                 } else {
-                    inmateIconPanel.add(new JLabel(new ImageIcon((gangLeaderInmateIcon)))).setBounds(3, 1, 35, 65);
+                    inmateIconPanel.add(new JLabel(new ImageIcon((gangLeaderInmateIcon))));
                 }
                 inmateIconPanel.add(inmateIdLabel);
                 inmateMainPanel.add(inmateIconPanel);
@@ -81,6 +87,7 @@ public class FacilityAreaPanel {
         inmateMainPanel.repaint();
     }
 
+    // Adds the titlePanel and inmateMainPanel to the facilityUnitPanel that is returned to MainAppPanel
     private void addPanels() {
         facilityUnitPanel.add(titlePanel);
         facilityUnitPanel.add(inmateMainPanel);
@@ -92,6 +99,7 @@ public class FacilityAreaPanel {
         return facilityUnitPanel;
     }
 
+    // Updates the currentInmate Map with the latest position
     public void updateInmateList(Map<Integer, Inmate> inmates) {
         currentInmates.putAll(inmates);
         paintInmates();

@@ -9,10 +9,13 @@ import java.io.IOException;
 
 
 public class MainAppFrame {
+
+    // Instance variables
     private final Prison prison;
     JFrame mainFrame;
     SplashPanel introPagePanel;
 
+    // Constructor
     public MainAppFrame(Prison prison) throws IOException {
         this.prison = prison;
         mainFrame = new JFrame();
@@ -24,7 +27,8 @@ public class MainAppFrame {
         runApp();
     }
 
-    public void runApp() throws IOException {
+    // Launches the Slash page
+    private void runApp() throws IOException {
         introPagePanel = new SplashPanel(prison, mainFrame);
         mainFrame.add(introPagePanel.getSplashPanel());
         mainFrame.validate();

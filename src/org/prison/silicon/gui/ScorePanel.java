@@ -7,6 +7,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ScorePanel {
+
+    // Instance variables
     private final JPanel scorePanel;
     private final JPanel mainTitlePanel;
     private final JLabel title;
@@ -18,6 +20,7 @@ public class ScorePanel {
     private final Facility kitchen;
     private final Facility workArea;
 
+    // constructor
     public ScorePanel(Prison prison, Facility lowSecurityUnit, Facility mediumSecurityUnit, Facility highSecurityUnit, Facility yard,
                       Facility kitchen, Facility workArea) {
 
@@ -34,11 +37,14 @@ public class ScorePanel {
         paintProgressBars();
     }
 
+    // Private method used to add the title and mainTitlePanel to the scorePanel
     private void mainScorePanelCreation() {
         mainTitlePanel.add(title);
         scorePanel.add(mainTitlePanel);
     }
 
+    // Public method used to create the progress bars by calling the progressBarSetup for each
+    //      area of the prison.
     public void paintProgressBars(){
         JSeparator separator = new JSeparator();
         separator.setOrientation(SwingConstants.HORIZONTAL);
@@ -56,7 +62,8 @@ public class ScorePanel {
         progressBarSetup("Work Area: ", workArea.getRiskRating());
     }
 
-    public void scorePanelSetup(){
+    // Public method that creates the score panel area
+    private void scorePanelSetup(){
         scorePanel.setBorder(BorderFactory.createLineBorder(Color.black, 5, false));
         scorePanel.setBackground(Color.gray);
         scorePanel.setLayout(new BoxLayout(scorePanel, BoxLayout.Y_AXIS));
@@ -66,7 +73,8 @@ public class ScorePanel {
         title.setBounds(60, 5, 300, 40);
     }
 
-    public void progressBarSetup(String name, int rating){
+    // Private method for the progressBarSetup
+    private void progressBarSetup(String name, int rating){
         JPanel mainPanel = new JPanel();
         mainPanel.setBackground(Color.gray);
         JLabel mainPanelLabel = new JLabel(name);
@@ -78,6 +86,7 @@ public class ScorePanel {
         scorePanel.add(mainPanel);
     }
 
+    // scorePanel getter
     public JPanel getScorePanel() {
         return scorePanel;
     }
