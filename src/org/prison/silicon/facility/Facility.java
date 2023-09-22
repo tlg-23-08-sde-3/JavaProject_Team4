@@ -13,9 +13,9 @@ public enum Facility {
     LOW_SECURITY_UNIT("Low Security Unit", 30, SecurityRating.LOW),
     MEDIUM_SECURITY_UNIT("Medium Security Unit", 30, SecurityRating.MEDIUM),
     HIGH_SECURITY_UNIT("High Security Unit", 30, SecurityRating.HIGH),
-    YARD("Yard", 30, SecurityRating.MEDIUM),
-    KITCHEN("Kitchen", 30, SecurityRating.MEDIUM),
-    WORK_AREA("Work Area", 30, SecurityRating.MEDIUM);
+    YARD("Yard", 30, SecurityRating.HIGH),
+    KITCHEN("Kitchen", 30, SecurityRating.HIGH),
+    WORK_AREA("Work Area", 30, SecurityRating.HIGH);
 
     // fields
     private final String name;
@@ -56,13 +56,24 @@ public enum Facility {
         }
     }
 
+    private int securityRatingViolation(Inmate inmate) {
+        int penalty = 0;
+            if (inmate.getSecurityRating().ordinal() > getSecurityRating().ordinal()) {
+                penalty += 10;
+            }
+        return penalty;
+    }
     public void calculateRiskRating() {
         // Calculate avgHappiness and ratingAdjHappiness for currentInmateMap
         double avgHappiness = 100.0;
+        int adjSecurityViolation = 0;
         if (!currentInmates.isEmpty()) {
             avgHappiness = currentInmates.values().stream()
                     .mapToInt(Inmate::getHappiness)
                     .average().getAsDouble();
+            for (Inmate inmate : currentInmates.values()) {
+                adjSecurityViolation += securityRatingViolation(inmate);
+            }
         }
         int ratingAdjHappiness = (int) (100 - avgHappiness) / 2;
         // Facility being at max capacity will increase riskRating by 50
@@ -70,7 +81,8 @@ public enum Facility {
         // Add a certain amount for each gangLeader
         int ratingAdjGang =
                 (int) currentInmates.values().stream().filter(Inmate::isGangLeader).count() * 10;
-        this.riskRating = ratingAdjHappiness + (int) ratingAdjCapacity + ratingAdjGang;
+        // calculate rating for facility
+        this.riskRating = ratingAdjHappiness + (int) ratingAdjCapacity + ratingAdjGang + adjSecurityViolation;
     }
 
     public void displayCurrentInmates() {
@@ -105,6 +117,7 @@ public enum Facility {
     }
 
     public int getRiskRating() {
+        calculateRiskRating();
         return riskRating;
     }
 

@@ -172,12 +172,13 @@ public class SplashPanel {
                 "   - Each location has a riot status bar\n" +
                 "   - The \"Overall Status\" bar displays the overall prison's riot status\n" +
                 "   - If an individual location reaches 100% riot status, your Prison status will increase by 25%\n" +
-                "     for each location above 100\n"));
+                "      for each location above 100\n"));
 
-        rightSplashPanel.add(new JTextArea("Inmate number first digit designates their security rating\n" +
-                "   - 1xxx is low security inmate\n" +
-                "   - 2xxx is medium security inmate\n" +
-                "   - 3xxx is high security inmate\n"));
+        rightSplashPanel.add(new JTextArea("Inmate number first digit designates their security rating and color\n" +
+                "   - 1xxx is low security inmate with a green ID label\n" +
+                "   - 2xxx is medium security inmate with an orange ID label\n" +
+                "   - 3xxx is high security inmate with a red ID label\n" +
+                "   - Note: Moving an inmate to a security unit that is lower than their security rating will increase your riot chance!"));
 
         rightSplashPanel.add(new JTextArea("Inmates are also dressed differently.\n" +
                 "   - Normal inmates are dressed in a striped uniform and aren't irritated as easy\n" +
@@ -188,7 +189,7 @@ public class SplashPanel {
                 "   - Eat moves the inmate to the Kitchen by default\n" +
                 "   - Sleep will return the inmate to their assigned security unit\n" +
                 "   - Work moves the inmate to Work Area\n" +
-                "   -When the Move action is called on an inmate you will have the following locations to pick from:\n" +
+                "   - When the Move action is called on an inmate you will have the following locations to pick from:\n" +
                 "      - Low Security Unit\n" +
                 "      - Medium Security Unit\n" +
                 "      - High Security Unit\n" +
