@@ -58,30 +58,49 @@ public class SplashPanel {
         mainSplashPanel.add(leftSplashPanel);
         mainSplashPanel.add(rightSplashPanel);
         rightSplashPanel.add(titlePanel);
-        rightSplashPanel.add(new JTextArea("Eat moves inmate to Kitchen\n" +
-                "Work moves inmate to Work Area\n" +
-                "Sleep moves inmate to a Security Unit based upon their security rating."));
+
+        rightSplashPanel.add(new JTextArea("Welcome to JailBreak. Try to last an entire round without causing a riot.\n" +
+                "As you move inmates around their happiness will decrease and their irritation will increase raising\n" +
+                "the chance of starting a riot. Normal inmates are dressed in striped uniforms while gang leaders\n" +
+                " wear sunglasses and get irritated easier than normal inmates.\n"));
+
+        rightSplashPanel.add(new JTextArea("Location Riot Status is a composite score based on:\n" +
+                "   - The average inmate happiness for that location\n" +
+                "   - The happiness is raised or lowered based on where you move inmates or have them do:\n" +
+                "         - Sleep increases the inmates happiness\n" +
+                "         - Eat increases the inmates happiness\n" +
+                "         - Work decreases the inmates happiness\n" +
+                "         - Over crowding an area decreases the inmates happiness\n" +
+                "   - The more inmates you add to an area the greater chance of a riot\n" +
+                "   - The number of gang leaders in that location increases a chance of a riot\n"));
+
+        rightSplashPanel.add(new JTextArea("The \"Prison Riot Status\" displays the average rating for each location:\n" +
+                "   - Each location has a riot status bar\n" +
+                "   - The \"Overall Status\" bar displays the overall prison's riot status\n" +
+                "   - If an individual location reaches 100% riot status, your Prison status will increase by 25%\n" +
+                "     for each location above 100\n"));
 
         rightSplashPanel.add(new JTextArea("Inmate number first digit designates their security rating\n" +
-                "1xxx is low security\n" +
-                "2xxx is medium security\n" +
-                "3xxx is high security"));
+                "   - 1xxx is low security inmate\n" +
+                "   - 2xxx is medium security inmate\n" +
+                "   - 3xxx is high security inmate\n"));
 
-        rightSplashPanel.add(new JTextArea("Gang leaders are designated with a different image"));
+        rightSplashPanel.add(new JTextArea("Inmates are also dressed differently.\n" +
+                "   - Normal inmates are dressed in a striped uniform and aren't irritated as easy\n" +
+                "   - Gang leaders are dressed in a jacket, pants, and have sunglasses\n" +
+                "         - Keep a close eye on where inmates are placed gang leaders have a higher riot chance.\n"));
 
-        rightSplashPanel.add(new JTextArea("Location Riot Status is composite score based on\n" +
-                "-average inmate happiness for that location\n" +
-                "  - happiness is raised or lowered based upon what you tell inmates to do\n" +
-                "  - working lowers happiness, sleeping and eating increase happiness\n" +
-                "-the capacity of a location\n" +
-                "  - the more inmates you add to an area the greater chance of a riot\n" +
-                "- number of gang leaders in that location\n" +
-                "  - more gang leaders together increase your riot chance"));
-
-        rightSplashPanel.add(new JTextArea("Prison Riot Status is an average rating for all locations\n" +
-                "- If an individual location reaches 100% riot status,\n" +
-                "  your Prison status will increase by 25% for each location above 100"));
-
+        rightSplashPanel.add(new JTextArea("Calling action such as Eat, Sleep or Work move the inmates to the following locations:\n" +
+                "   - Eat moves the inmate to the Kitchen by default\n" +
+                "   - Sleep will return the inmate to their assigned security unit\n" +
+                "   - Work moves the inmate to Work Area\n" +
+                "   -When the Move action is called on an inmate you will have the following locations to pick from:\n" +
+                "      - Low Security Unit\n" +
+                "      - Medium Security Unit\n" +
+                "      - High Security Unit\n" +
+                "      - Yard\n" +
+                "      - Kitchen\n" +
+                "      - Work Area\n"));
 
         continueButton = new JButton("Continue");
         JPanel buttonPanel = new JPanel();
@@ -89,13 +108,15 @@ public class SplashPanel {
         buttonPanel.add(continueButton);
         rightSplashPanel.add(buttonPanel);
 
+        // focus on the continue button so you can click continue without the mouse
+        mainFrame.getRootPane().setDefaultButton(continueButton);
+
         continueButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
                     loadGUI();
                     mainFrame.dispose();
-                    System.out.println("test");
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }

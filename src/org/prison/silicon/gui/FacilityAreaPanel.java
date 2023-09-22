@@ -92,10 +92,6 @@ public class FacilityAreaPanel {
         return facilityUnitPanel;
     }
 
-    public void getInmateMainPanel() {
-        paintInmates();
-    }
-
     public void updateInmateList(Map<Integer, Inmate> inmates) {
         currentInmates.putAll(inmates);
         paintInmates();

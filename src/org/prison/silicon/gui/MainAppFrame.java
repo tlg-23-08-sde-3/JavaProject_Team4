@@ -7,8 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 
-import static org.prison.silicon.facility.Facility.*;
-import static org.prison.silicon.facility.Facility.WORK_AREA;
 
 public class MainAppFrame {
     private final Prison prison;

@@ -21,10 +21,12 @@ public class MainAppPanel {
     FacilityAreaPanel workAreaPanel;
     ScorePanel scorePanel;
     UserInputPanel userInputPanel;
+    Prison prison;
 
     public MainAppPanel(Prison prison, Facility lowSecurityUnit, Facility mediumSecurityUnit, Facility highSecurityUnit, Facility yard,
                         Facility kitchen, Facility workArea) throws IOException {
 
+        this.prison = prison;
         lowSecurityUnitPanel = new FacilityAreaPanel(lowSecurityUnit, "Low Security Unit");
         mediumSecurityUnitPanel = new FacilityAreaPanel(mediumSecurityUnit, "Medium Security Panel");
         highSecurityUnitPanel = new FacilityAreaPanel(highSecurityUnit, "High Security Unit");

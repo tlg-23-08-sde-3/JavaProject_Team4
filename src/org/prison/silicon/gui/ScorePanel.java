@@ -40,16 +40,20 @@ public class ScorePanel {
     }
 
     public void paintProgressBars(){
+        JSeparator separator = new JSeparator();
+        separator.setOrientation(SwingConstants.HORIZONTAL);
+        separator.setForeground(Color.black);
         scorePanel.removeAll();
         scorePanelSetup();
         mainScorePanelCreation();
-        ProgressBarSetup("Overall Status: ", prison.getRiskRating());
-        ProgressBarSetup("Low Security Unit: ", lowSecurityUnit.getRiskRating());
-        ProgressBarSetup("Medium Security Unit: ", mediumSecurityUnit.getRiskRating());
-        ProgressBarSetup("High Security Unit: ", highSecurityUnit.getRiskRating());
-        ProgressBarSetup("Yard: ", yard.getRiskRating());
-        ProgressBarSetup("Kitchen: ", kitchen.getRiskRating());
-        ProgressBarSetup("Work Area: ", workArea.getRiskRating());
+        progressBarSetup("OVERALL PRISON STATUS", prison.getRiskRating());
+        scorePanel.add(separator);
+        progressBarSetup("Low Security Unit: ", lowSecurityUnit.getRiskRating());
+        progressBarSetup("Medium Security Unit: ", mediumSecurityUnit.getRiskRating());
+        progressBarSetup("High Security Unit: ", highSecurityUnit.getRiskRating());
+        progressBarSetup("Yard: ", yard.getRiskRating());
+        progressBarSetup("Kitchen: ", kitchen.getRiskRating());
+        progressBarSetup("Work Area: ", workArea.getRiskRating());
     }
 
     public void scorePanelSetup(){
@@ -62,7 +66,7 @@ public class ScorePanel {
         title.setBounds(60, 5, 300, 40);
     }
 
-    public void ProgressBarSetup(String name, int rating){
+    public void progressBarSetup(String name, int rating){
         JPanel mainPanel = new JPanel();
         mainPanel.setBackground(Color.gray);
         JLabel mainPanelLabel = new JLabel(name);

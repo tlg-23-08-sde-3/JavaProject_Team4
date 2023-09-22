@@ -53,6 +53,7 @@ public class Prison {
                 facilityRiot = true;
                 riotCount++;
             }
+            facility.calculateRiskRating();
             sum += facility.getRiskRating();
         }
         int avgRisk = sum / prisonMap.size();
