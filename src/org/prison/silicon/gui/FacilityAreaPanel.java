@@ -95,9 +95,17 @@ public class FacilityAreaPanel {
                     inmateIconPanel.add(new JLabel(new ImageIcon((trashFireIcon))));
                 } else {
                     if (!inmate.getValue().isGangLeader()) {
-                        inmateIconPanel.add(new JLabel(new ImageIcon((normalInmateIcon))));
+                        JLabel inmateImage = new JLabel(new ImageIcon((normalInmateIcon)));
+                        inmateImage.setToolTipText("Happiness: " + Integer.toString(inmate.getValue().getHappiness()) +
+                                "  /  Security Rating: " + inmate.getValue().getSecurityRating());
+                        inmateIconPanel.add(inmateImage);
                     } else {
-                        inmateIconPanel.add(new JLabel(new ImageIcon((gangLeaderInmateIcon))));
+                        JLabel inmateImage = new JLabel(new ImageIcon((gangLeaderInmateIcon)));
+                        inmateImage.setToolTipText("Happiness: " + Integer.toString(inmate.getValue().getHappiness()) +
+                                "  /  Security Rating: " + inmate.getValue().getSecurityRating());
+                        inmateIconPanel.add(inmateImage);
+
+                        inmateIconPanel.add(inmateImage);
                     }
                 }
                 if(!riotStatus) {

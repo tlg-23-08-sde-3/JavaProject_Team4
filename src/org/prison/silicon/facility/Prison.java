@@ -102,7 +102,6 @@ public class Prison {
                 currentFacility.removeInmate(inmate.getIdNumber());
                 // move inmate to the new location and update currentLocation
                 newFacility.addInmate(inmate);
-                System.out.printf("Inmate %s has been moved to %s\n", inmate.getIdNumber(), newFacility.getName());
                 successfulMove = true;
                 calculateRiskRating();
             } else {
@@ -158,7 +157,6 @@ public class Prison {
 
     public int getRiskRating() {
         calculateRiskRating();
-        System.out.println(this.riskRating);
         return riskRating;
     }
 
