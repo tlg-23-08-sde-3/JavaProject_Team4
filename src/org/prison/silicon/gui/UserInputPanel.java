@@ -157,8 +157,7 @@ public class UserInputPanel {
                 prison.locateInmateByID(inmateId).move(Facility.valueOf(selectedFacility));
                 break;
         }
-        System.out.println(scorePanel.getOverallRiotPercent());
-        if(scorePanel.getOverallRiotPercent() >= 100){
+        if(prison.getRiskRating() >= 100){
             riotStatus = true;
         } else {
             riotStatus = false;

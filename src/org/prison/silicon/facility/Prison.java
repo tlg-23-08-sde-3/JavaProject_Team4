@@ -159,6 +159,7 @@ public class Prison {
     }
 
     public int getRiskRating() {
+        System.out.println(this.riskRating);
         return riskRating;
     }
 

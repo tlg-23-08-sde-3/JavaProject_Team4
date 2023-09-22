@@ -47,7 +47,6 @@ public class ScorePanel {
     // Public method used to create the progress bars by calling the progressBarSetup for each
     //      area of the prison.
     public void paintProgressBars(){
-        setOverallRiotPercent(prison.getRiskRating());
         JSeparator separator = new JSeparator();
         separator.setOrientation(SwingConstants.HORIZONTAL);
         separator.setForeground(Color.black);
@@ -62,6 +61,7 @@ public class ScorePanel {
         progressBarSetup("Yard: ", yard.getRiskRating());
         progressBarSetup("Kitchen: ", kitchen.getRiskRating());
         progressBarSetup("Work Area: ", workArea.getRiskRating());
+        setOverallRiotPercent(prison.getRiskRating());
     }
 
     // Public method that creates the score panel area
