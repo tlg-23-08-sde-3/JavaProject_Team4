@@ -1,5 +1,6 @@
 package org.prison.silicon.gui;
 
+import org.prison.silicon.SecurityRating;
 import org.prison.silicon.facility.Facility;
 import org.prison.silicon.population.Inmate;
 
@@ -71,12 +72,24 @@ public class FacilityAreaPanel {
         inmateMainPanel.removeAll();
         currentInmates.clear();
         currentInmates.putAll(facilityUnit.getInmateMap());
+        String inmateIdColor = null;
         try {
             for (Map.Entry<Integer, Inmate> inmate : currentInmates.entrySet()) {
+                switch (inmate.getValue().getSecurityRating()) {
+                    case LOW:
+                        inmateIdColor = "<html><font color=green>";
+                        break;
+                    case MEDIUM:
+                        inmateIdColor = "<html><font color=orange>";
+                        break;
+                    case HIGH:
+                        inmateIdColor = "<html><font color=red>";
+                        break;
+                }
                 trashFireCounter++;
                 JPanel inmateIconPanel = new JPanel();
                 inmateIconPanel.setLayout(new BoxLayout(inmateIconPanel, BoxLayout.Y_AXIS));
-                JLabel inmateIdLabel = new JLabel(inmate.getKey().toString());
+                JLabel inmateIdLabel = new JLabel(inmateIdColor + inmate.getKey().toString());
 
                 if(riotStatus && trashFireCounter % 3 == 0){
                     inmateIconPanel.add(new JLabel(new ImageIcon((trashFireIcon))));

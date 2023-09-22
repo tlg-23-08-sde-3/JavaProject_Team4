@@ -104,8 +104,6 @@ public class Prison {
                 newFacility.addInmate(inmate);
                 System.out.printf("Inmate %s has been moved to %s\n", inmate.getIdNumber(), newFacility.getName());
                 successfulMove = true;
-                currentFacility.calculateRiskRating();
-                newFacility.calculateRiskRating();
                 calculateRiskRating();
             } else {
                 throw new IllegalArgumentException("Can't move an inmate to a location they are already in.");
@@ -159,6 +157,7 @@ public class Prison {
     }
 
     public int getRiskRating() {
+        calculateRiskRating();
         System.out.println(this.riskRating);
         return riskRating;
     }
