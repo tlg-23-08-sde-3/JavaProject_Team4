@@ -32,5 +32,6 @@ class WinTimer extends Thread {
                 message,
                 title,
                 JOptionPane.INFORMATION_MESSAGE);
+        System.exit(0);
     }
 }

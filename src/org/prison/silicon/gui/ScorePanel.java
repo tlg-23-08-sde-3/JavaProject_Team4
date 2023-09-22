@@ -9,6 +9,7 @@ import java.awt.*;
 public class ScorePanel {
 
     // Instance variables
+    private int overallRiotPercent = 0;
     private final JPanel scorePanel;
     private final JPanel mainTitlePanel;
     private final JLabel title;
@@ -46,6 +47,7 @@ public class ScorePanel {
     // Public method used to create the progress bars by calling the progressBarSetup for each
     //      area of the prison.
     public void paintProgressBars(){
+        setOverallRiotPercent(prison.getRiskRating());
         JSeparator separator = new JSeparator();
         separator.setOrientation(SwingConstants.HORIZONTAL);
         separator.setForeground(Color.black);
@@ -89,5 +91,13 @@ public class ScorePanel {
     // scorePanel getter
     public JPanel getScorePanel() {
         return scorePanel;
+    }
+
+    public void setOverallRiotPercent(int updatedPercent){
+        this.overallRiotPercent = updatedPercent;
+    }
+
+    public int getOverallRiotPercent(){
+        return overallRiotPercent;
     }
 }

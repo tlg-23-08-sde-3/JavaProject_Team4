@@ -21,15 +21,18 @@ public class FacilityAreaPanel {
     private final JPanel titlePanel;
     private final JLabel title;
     private final Map<Integer, Inmate> currentInmates = new TreeMap<>();
+    boolean trashFire;
 
     // Images
     private BufferedImage normalInmateImage;
     private BufferedImage gangLeaderImage;
+    private BufferedImage trashFireImage;
 
     {
         try {
             gangLeaderImage = ImageIO.read(new File("resources/images/gangleader.png"));
             normalInmateImage = ImageIO.read(new File("resources/images/prisoner.png"));
+            trashFireImage = ImageIO.read(new File("resources/Images/trashFire.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -37,6 +40,7 @@ public class FacilityAreaPanel {
 
     private final Image normalInmateIcon = normalInmateImage.getScaledInstance(25, 50, Image.SCALE_DEFAULT);
     private final Image gangLeaderInmateIcon = gangLeaderImage.getScaledInstance(25, 50, Image.SCALE_DEFAULT);
+    private final Image trashFireIcon = trashFireImage.getScaledInstance(25, 50, Image.SCALE_DEFAULT);
 
     // Constructor
     public FacilityAreaPanel(Facility facilityUnit, String name) {
@@ -46,7 +50,7 @@ public class FacilityAreaPanel {
         inmateMainPanel = new JPanel();
         title = new JLabel(name + ", Max Inmates: 30");
         facilityUnitSetup();
-        paintInmates();
+        paintInmates(false);
         addPanels();
     }
 
@@ -60,24 +64,32 @@ public class FacilityAreaPanel {
         title.setFont(title.getFont().deriveFont(Font.BOLD));
         facilityUnitPanel.setBorder(BorderFactory.createLineBorder(Color.black, 5, false));
     }
-
     // Paints the inmate clip are for each area of the prison
     // First the inmateMainPanel is cleared then repainted
-    public void paintInmates() {
+    public void paintInmates(boolean riotStatus) {
+        int trashFireCounter = 0;
         inmateMainPanel.removeAll();
         currentInmates.clear();
         currentInmates.putAll(facilityUnit.getInmateMap());
         try {
             for (Map.Entry<Integer, Inmate> inmate : currentInmates.entrySet()) {
+                trashFireCounter++;
                 JPanel inmateIconPanel = new JPanel();
                 inmateIconPanel.setLayout(new BoxLayout(inmateIconPanel, BoxLayout.Y_AXIS));
                 JLabel inmateIdLabel = new JLabel(inmate.getKey().toString());
-                if (!inmate.getValue().isGangLeader()) {
-                    inmateIconPanel.add(new JLabel(new ImageIcon((normalInmateIcon))));
+
+                if(riotStatus && trashFireCounter % 3 == 0){
+                    inmateIconPanel.add(new JLabel(new ImageIcon((trashFireIcon))));
                 } else {
-                    inmateIconPanel.add(new JLabel(new ImageIcon((gangLeaderInmateIcon))));
+                    if (!inmate.getValue().isGangLeader()) {
+                        inmateIconPanel.add(new JLabel(new ImageIcon((normalInmateIcon))));
+                    } else {
+                        inmateIconPanel.add(new JLabel(new ImageIcon((gangLeaderInmateIcon))));
+                    }
                 }
-                inmateIconPanel.add(inmateIdLabel);
+                if(!riotStatus) {
+                    inmateIconPanel.add(inmateIdLabel);
+                }
                 inmateMainPanel.add(inmateIconPanel);
             }
         } catch (NullPointerException e) {
@@ -85,6 +97,12 @@ public class FacilityAreaPanel {
         }
         inmateMainPanel.revalidate();
         inmateMainPanel.repaint();
+        if(riotStatus && facilityUnit.getName().equals("Work Area")){
+            JOptionPane.showMessageDialog(null, "The prison has gone into full riot, " +
+                    "and fires have been started in the prison units.", "Full Riot\n\n" +
+                    "Better luck next time. Thanks for playing", JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
+        }
     }
 
     // Adds the titlePanel and inmateMainPanel to the facilityUnitPanel that is returned to MainAppPanel
@@ -102,6 +120,6 @@ public class FacilityAreaPanel {
     // Updates the currentInmate Map with the latest position
     public void updateInmateList(Map<Integer, Inmate> inmates) {
         currentInmates.putAll(inmates);
-        paintInmates();
+        paintInmates(false);
     }
 }

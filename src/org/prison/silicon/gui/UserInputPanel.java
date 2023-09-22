@@ -139,6 +139,7 @@ public class UserInputPanel {
 
     // private method used to move inmates
     private void moveInmate(){
+        boolean riotStatus;
         String selectedAction = (String) actionSelectionMenu.getSelectedItem();
         String selectedFacility = (String) facilitiesSelection.getSelectedItem();
         int inmateId = Integer.parseInt(inmateField.getText());
@@ -156,14 +157,20 @@ public class UserInputPanel {
                 prison.locateInmateByID(inmateId).move(Facility.valueOf(selectedFacility));
                 break;
         }
+        System.out.println(scorePanel.getOverallRiotPercent());
+        if(scorePanel.getOverallRiotPercent() >= 100){
+            riotStatus = true;
+        } else {
+            riotStatus = false;
+        }
         inmateField.setText("");
         scorePanel.paintProgressBars();
-        lowSecurityUnitPanel.paintInmates();
-        mediumSecurityUnitPanel.paintInmates();
-        highSecurityUnitPanel.paintInmates();
-        yardPanel.paintInmates();
-        kitchenPanel.paintInmates();
-        workAreaPanel.paintInmates();
+        lowSecurityUnitPanel.paintInmates(riotStatus);
+        mediumSecurityUnitPanel.paintInmates(riotStatus);
+        highSecurityUnitPanel.paintInmates(riotStatus);
+        yardPanel.paintInmates(riotStatus);
+        kitchenPanel.paintInmates(riotStatus);
+        workAreaPanel.paintInmates(riotStatus);
     }
 
     // userInputPanel getter
